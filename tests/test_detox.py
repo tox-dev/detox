@@ -1,5 +1,6 @@
 import pytest
 from detox.proc import StreamProcess
+import eventlet
 
 @pytest.mark.parametrize(("stream", "value",), [
     ("stdout", "a", ),
@@ -14,3 +15,4 @@ def test_subprocess_outstreams(stream, value):
     sp.wait_outstreams()
     result = "".join(l)
     assert result == value
+
