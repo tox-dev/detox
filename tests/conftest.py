@@ -26,6 +26,8 @@ def create_example1(tmpdir):
 
 def pytest_configure(config):
     config.addinivalue_line("markers", "example1: use example1 for setup")
+    config.addinivalue_line("markers", "timeout(N): stop test function "
+        "after N seconds.")
 
 def pytest_funcarg__detox(request):
     tmpdir = request.getfuncargvalue("tmpdir")
