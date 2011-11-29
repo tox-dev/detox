@@ -45,6 +45,7 @@ class StreamProcess:
 
 class Detox:
     def __init__(self, setupfile):
+        setupfile = py.path.local(setupfile)
         assert setupfile.check()
         self.setupfile = setupfile
 
