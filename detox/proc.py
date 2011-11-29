@@ -15,6 +15,7 @@ def timelimited(secs, func):
 
 class StreamProcess:
     def __init__(self, args, linetimeout=None, **kwargs):
+        args = list(map(str, args))
         self._popen = Popen(args, stdout=PIPE, stderr=PIPE, **kwargs)
         self.pid = self._popen.pid
         self.linetimeout = linetimeout
@@ -62,11 +63,13 @@ class Detox:
         assert not sp.wait()
         sp.wait_outstreams()
         assert len(sdist) == 1
-        return py.path.local(sdist[0])
+        self.sdistfile = s = py.path.local(sdist[0])
+        assert s.check()
+        return s
 
-    def create_venv(self, name):
+    def getvenv(self, name):
         cwd = self.setupfile.dirpath()
-        sp = StreamProcess(["tox", "-e", name, "--notest"], cwd=str(cwd))
+        sp = StreamProcess(["tox", "-e", name, "--venvonly"], cwd=str(cwd))
         sp.copy_outstream("stdout", sys.stdout.write)
         sp.copy_outstream("stderr", sys.stderr.write)
         sp.wait_outstreams()
@@ -74,3 +77,27 @@ class Detox:
         # XXX
         venvdir = cwd.join(".tox", name)
         return venvdir
+
+    def installsdist(self, sdist, venvname):
+        cwd = self.setupfile.dirpath()
+        sp = StreamProcess(["tox", "-e", venvname, "--usesdist", sdist,
+            "--notest",], cwd=str(cwd))
+        sp.copy_outstream("stdout", sys.stdout.write)
+        sp.copy_outstream("stderr", sys.stderr.write)
+        sp.wait_outstreams()
+        assert not sp.wait()
+        venvdir = cwd.join(".tox", venvname)
+        return venvdir
+
+    def runtestcommand(self, venvname):
+        cwd = self.setupfile.dirpath()
+        sp = StreamProcess(["tox", "-e", venvname, "--testonly",],
+            cwd=str(cwd))
+        sp.copy_outstream("stdout", sys.stdout.write)
+        sp.copy_outstream("stderr", sys.stderr.write)
+        sp.wait_outstreams()
+        assert not sp.wait()
+        venvdir = cwd.join(".tox", venvname)
+        return venvdir
+
+
