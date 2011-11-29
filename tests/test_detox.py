@@ -26,3 +26,12 @@ class TestStreamProcess:
         ret = sp.wait()
         assert ret
         assert ret == -9
+
+
+class TestDetox:
+    @pytest.mark.example1
+    def test_createsdist(self, detox):
+        assert detox.setupfile.check()
+        sdist = detox.createsdist()
+        assert sdist.check()
+

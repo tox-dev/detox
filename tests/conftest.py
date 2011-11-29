@@ -1,8 +1,43 @@
 import pytest
 import py
 import eventlet
+from textwrap import dedent as d
+from detox.proc import Detox
 
 pytest_plugins = "pytester"
+
+def create_example1(tmpdir):
+    tmpdir.join("setup.py").write(d("""
+        from setuptools import setup
+
+        def main():
+            setup(
+                name='example1',
+                description='example1 project for testing detox',
+                version='0.4',
+                packages=['example1',],
+            )
+        if __name__ == '__main__':
+            main()
+    """))
+    tmpdir.join("tox.ini").write(d("""
+    """))
+    tmpdir.join("example1", "__init__.py").ensure()
+
+def pytest_configure(config):
+    config.addinivalue_line("markers", "example1: use example1 for setup")
+
+def pytest_funcarg__detox(request):
+    tmpdir = request.getfuncargvalue("tmpdir")
+    for x in dir(request.function):
+        if x.startswith("example"):
+            exampledir = tmpdir.mkdir(x)
+            globals()["create_"+x](exampledir)
+            print ("%s created at %s" %(x,exampledir))
+            break
+    else:
+        raise request.LookupError("test function does not define example")
+    return Detox(exampledir.join("setup.py"))
 
 @pytest.mark.tryfirst
 def pytest_pyfunc_call(__multicall__, pyfuncitem):
