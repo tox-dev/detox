@@ -35,6 +35,7 @@ class TestDetoxExample1:
         sdist = detox.create_sdist()
         assert sdist.check()
 
+    @pytest.mark.timeout(20)
     def test_createvenv(self, detox):
         venv = detox.create_venv("py26")
         assert venv.check()
