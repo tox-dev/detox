@@ -30,6 +30,8 @@ class StreamProcess:
                     writer(s)
             except DeadProcess:
                 pass
+            except Timeout:
+                self._popen.kill()
         self._outstreampool.spawn(readout)
 
     def wait_outstreams(self):

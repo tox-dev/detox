@@ -24,7 +24,6 @@ def test_pyfuncall():
     pytest.raises(eventlet.Timeout,
         lambda: pytest_pyfunc_call(MC(), pyfuncitem))
 
-
 def test_hang(testdir):
     p = py.path.local(__file__).dirpath('conftest.py')
     p.copy(testdir.tmpdir.join(p.basename))
