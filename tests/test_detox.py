@@ -1,50 +1,72 @@
 import pytest
-from detox.proc import StreamProcess
 import eventlet
+from detox.proc import Resources
 
-class TestStreamProcess:
-    @pytest.mark.parametrize(("stream", "value",), [
-        ("stdout", "a", ),
-        ("stdout", "a\n", ),
-        ("stderr", "b13\n17", ),
-    ])
-    def test_outstreams(self, stream, value):
-        sp = StreamProcess(["python", "-c",
-            "import sys ; sys.%s.write(%r)" % (stream, value)])
-        l = []
-        sp.copy_outstream(stream, l.append)
-        sp.wait_outstreams()
-        result = "".join(l)
-        assert result == value
+class TestResources:
+    def test_getresources(self):
+        l= []
+        class Provider:
+            def provide_abc(self):
+                l.append(1)
+                return 42
+        resources = Resources(Provider())
+        res, = resources.getresources("abc")
+        assert res == 42
+        assert len(l) == 1
+        res, = resources.getresources("abc")
+        assert len(l) == 1
+        assert res == 42
 
-    @pytest.mark.parametrize("stream", ["stdout", "stderr"])
-    def test_outstreams_linetimeout(self, stream):
-        sp = StreamProcess(["python", "-c",
-            "import time ; time.sleep(5)"], linetimeout=0.01)
-        sp.copy_outstream(stream, lambda d: None)
-        sp.wait_outstreams()
-        ret = sp.wait()
-        assert ret
-        assert ret == -9
+    def test_getresources_param(self):
+        class Provider:
+            def provide_abc(self, param):
+                return param
+        resources = Resources(Provider())
+        res, = resources.getresources("abc:123")
+        return res == "123"
 
+    def test_getresources_parallel(self):
+        l= []
+        queue = eventlet.Queue()
+        class Provider:
+            def provide_abc(self):
+                l.append(1)
+                return 42
+        resources = Resources(Provider())
+        pool = eventlet.GreenPool(2)
+        pool.spawn(lambda: resources.getresources("abc"))
+        pool.spawn(lambda: resources.getresources("abc"))
+        pool.waitall()
+        assert len(l) == 1
+
+    def test_getresources_multi(self):
+        l= []
+        queue = eventlet.Queue()
+        class Provider:
+            def provide_abc(self):
+                l.append(1)
+                return 42
+            def provide_def(self):
+                l.append(1)
+                return 23
+        resources = Resources(Provider())
+        a, d = resources.getresources("abc", "def")
+        assert a == 42
+        assert d == 23
 
 @pytest.mark.example1
+@pytest.mark.timeout(20)
 class TestDetoxExample1:
     def test_createsdist(self, detox):
         assert detox.setupfile.check()
-        sdist = detox.create_sdist()
+        sdist, = detox.getresources("sdist")
         assert sdist.check()
 
-    @pytest.mark.timeout(20)
     def test_getvenv(self, detox):
-        venv = detox.getvenv("py")
-        assert venv.check()
-        venv2 = detox.getvenv("py")
-        assert venv2 == venv
+        venv, = detox.getresources("venv:py")
+        assert venv.dir.check()
+        venv2, = detox.getresources("venv:py")
+        assert venv == venv2
 
-    @pytest.mark.timeout(20)
     def test_test(self, detox):
-        sdist = detox.create_sdist()
-        venv = detox.getvenv("py")
-        detox.installsdist(sdist, "py")
-        detox.runtestcommand("py")
+        detox.runtests("py")
