@@ -37,14 +37,14 @@ class TestDetoxExample1:
 
     @pytest.mark.timeout(20)
     def test_getvenv(self, detox):
-        venv = detox.getvenv("py26")
+        venv = detox.getvenv("py")
         assert venv.check()
-        venv2 = detox.getvenv("py26")
+        venv2 = detox.getvenv("py")
         assert venv2 == venv
 
     @pytest.mark.timeout(20)
     def test_test(self, detox):
         sdist = detox.create_sdist()
-        venv = detox.getvenv("py26")
-        detox.installsdist(sdist, "py26")
-        detox.runtestcommand("py26")
+        venv = detox.getvenv("py")
+        detox.installsdist(sdist, "py")
+        detox.runtestcommand("py")

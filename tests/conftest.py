@@ -21,13 +21,14 @@ def create_example1(tmpdir):
             main()
     """))
     tmpdir.join("tox.ini").write(d("""
+        [testenv:py]
     """))
     tmpdir.join("example1", "__init__.py").ensure()
 
 def pytest_configure(config):
     config.addinivalue_line("markers", "example1: use example1 for setup")
     config.addinivalue_line("markers", "timeout(N): stop test function "
-        "after N seconds.")
+        "after N seconds, throwing a Timeout.")
 
 def pytest_funcarg__detox(request):
     tmpdir = request.getfuncargvalue("tmpdir")

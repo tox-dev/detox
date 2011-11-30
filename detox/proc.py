@@ -6,6 +6,8 @@ from eventlet.processes import Process, DeadProcess
 from eventlet.timeout import Timeout
 from eventlet.green.subprocess import Popen, PIPE, STDOUT
 import eventlet
+import tox._config
+import tox._cmdline
 
 def timelimited(secs, func):
     if secs is not None:
@@ -49,56 +51,37 @@ class Detox:
         assert setupfile.check()
         self.setupfile = setupfile
 
+    @property
+    def toxsession(self):
+        try:
+            return self._toxsession
+        except AttributeError:
+            toxini = self.setupfile.dirpath("tox.ini")
+            config = tox._config.parseconfig(['-c', str(toxini)])
+            self._toxsession = tox._cmdline.Session(config, Popen)
+            return self._toxsession
+
     _rexsdistline = re.compile(".*new sdistfile to '(.+)'")
     def create_sdist(self):
-        cwd = self.setupfile.dirpath()
-        sp = StreamProcess(["tox", "--sdistonly"], cwd=str(cwd))
-        sdist = []
-        def hackout_sdist(line):
-            sys.stdout.write(line)
-            m = self._rexsdistline.match(line)
-            if m is not None:
-                sdist.append(m.group(1))
-        sp.copy_outstream("stdout", hackout_sdist)
-        sp.copy_outstream("stderr", sys.stderr.write)
-        assert not sp.wait()
-        sp.wait_outstreams()
-        assert len(sdist) == 1
-        self.sdistfile = s = py.path.local(sdist[0])
-        assert s.check()
-        return s
+        sdist = self.toxsession.sdist()
+        return sdist
 
-    def getvenv(self, name):
-        cwd = self.setupfile.dirpath()
-        sp = StreamProcess(["tox", "-e", name, "--venvonly"], cwd=str(cwd))
-        sp.copy_outstream("stdout", sys.stdout.write)
-        sp.copy_outstream("stderr", sys.stderr.write)
-        sp.wait_outstreams()
-        assert not sp.wait()
-        # XXX
-        venvdir = cwd.join(".tox", name)
-        return venvdir
+    def gettoxenv(self, venvname):
+        venv = session.getvenv(venvname)
+        return venv.envdir
+
+    def getvenv(self, venvname):
+        venv = self.toxsession.getvenv(venvname)
+        self.toxsession.setupenv(venv, None)
+        return venv.envconfig.envdir
 
     def installsdist(self, sdist, venvname):
-        cwd = self.setupfile.dirpath()
-        sp = StreamProcess(["tox", "-e", venvname, "--usesdist", sdist,
-            "--notest",], cwd=str(cwd))
-        sp.copy_outstream("stdout", sys.stdout.write)
-        sp.copy_outstream("stderr", sys.stderr.write)
-        sp.wait_outstreams()
-        assert not sp.wait()
-        venvdir = cwd.join(".tox", venvname)
-        return venvdir
+        venv = self.toxsession.getvenv(venvname)
+        venv.install_sdist(sdist)
+        return venv
 
     def runtestcommand(self, venvname):
-        cwd = self.setupfile.dirpath()
-        sp = StreamProcess(["tox", "-e", venvname, "--testonly",],
-            cwd=str(cwd))
-        sp.copy_outstream("stdout", sys.stdout.write)
-        sp.copy_outstream("stderr", sys.stderr.write)
-        sp.wait_outstreams()
-        assert not sp.wait()
-        venvdir = cwd.join(".tox", venvname)
-        return venvdir
+        venv = self.toxsession.getvenv(venvname)
+        venv.test()
 
 
