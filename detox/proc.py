@@ -16,11 +16,12 @@ def timelimited(secs, func):
     return func()
 
 class Detox:
-    def __init__(self, setupfile):
+    def __init__(self, setupfile, toxargs=()):
         setupfile = py.path.local(setupfile)
         assert setupfile.check()
         self.setupfile = setupfile
         self._resources = Resources(self)
+        self._toxargs = list(toxargs)
 
     @property
     def toxsession(self):
@@ -28,7 +29,8 @@ class Detox:
             return self._toxsession
         except AttributeError:
             toxini = self.setupfile.dirpath("tox.ini")
-            config = tox._config.parseconfig(['-c', str(toxini)])
+            toxargs = ['-c', str(toxini)] + self._toxargs
+            config = tox._config.parseconfig(toxargs)
             self._toxsession = tox._cmdline.Session(config, Popen)
             return self._toxsession
 
@@ -45,6 +47,12 @@ class Detox:
         venv, sdist = self.getresources("venv:%s" % venvname, "sdist")
         venv.install_sdist(sdist)
         venv.test()
+
+    def runtestsmulti(self, envlist):
+        pool = GreenPool()
+        for env in envlist:
+            pool.spawn_n(self.runtests, env)
+        pool.waitall()
 
     def getresources(self, *specs):
         return self._resources.getresources(*specs)
