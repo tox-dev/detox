@@ -1,0 +1,43 @@
+
+distributed tox run protope break through
+--------------------------------------------
+tags: feature hl
+
+Try to get a detox run like this to work:
+
+    detox --label win32 -e py27 -e py32
+
+this would create activities like this:
+
+* create venv py27 on a host matching the label "win32",
+  return a "id=win32:1//dir=path/to/venv" resource to reference this venv
+* create sdist on a host matching label "sdist", return resource 
+  id=sdist:1//file=R1
+* install sdist into venv id=win32:1//dir=path/to/venv
+  returning a builddir ref id=win32:1//dir=path/to/unpacked_builddir
+* run test activity using venv id=win32:1//dir=path/to/venv
+  running from the builddir as cwd id:32:1//dir=path/to/unpacked_builddir
+  (using the tox.ini from the unpacked build dir)
+
+implement a distributed Process abstraction
+---------------------------------------------
+
+example client-side detox session using "v"resources and vcmd's:
+
+    v_sdist = vcmd.getsdistpath() # XXX
+    v_venvdir = vcmd.getvenv(label="win32", python="python2.7", deps="...")
+    v_unpackdir = vcmd.installsdist(v_venvdir, v_sdist)
+    v_process = vcmd.runprocess(v_venvdir, ["testcmd", "arg2", ...], 
+        # XXX stdin/stdout/stderr redir?!
+        chdir=v_unpackdir)
+    while 1:
+        nextline = v_process.readline()
+        if nextline is None:
+            break
+        print (nextline)
+
+vprocess.kill(SIG)
+vprocess.wait()
+vprocess.interact()
+
+a VDir(host, path) would be a pointer to a particular directory on a given host.
