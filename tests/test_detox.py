@@ -65,7 +65,7 @@ class TestDetoxExample1:
 
     def test_getvenv(self, detox):
         venv, = detox.getresources("venv:py")
-        assert venv.dir.check()
+        assert venv.envconfig.envdir.check()
         venv2, = detox.getresources("venv:py")
         assert venv == venv2
 
