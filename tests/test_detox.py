@@ -91,5 +91,4 @@ class TestCmdline:
         result = cmd.rundetox("-e", "py")
         result.stdout.fnmatch_lines([
             "*creating*py*",
-            "qwe",
         ])
