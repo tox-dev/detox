@@ -27,7 +27,7 @@ def main():
         packages=['detox',
         ],
         install_requires=['tox', 'greenlet>=0.3',],
-        entry_points={'console_scripts': 'detox=detox:main'},
+        entry_points={'console_scripts': 'detox=detox.main:main'},
     )
 
 if __name__ == '__main__':

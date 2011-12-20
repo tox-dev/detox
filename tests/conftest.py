@@ -9,6 +9,7 @@ from eventlet.green.subprocess import Popen
 from textwrap import dedent as d
 from detox.proc import Detox
 from _pytest.pytester import RunResult, getdecoded
+import detox.main
 
 pytest_plugins = "pytester"
 
@@ -50,7 +51,11 @@ def pytest_funcarg__exampledir(request):
 
 def pytest_funcarg__detox(request):
     exampledir = request.getfuncargvalue("exampledir")
-    return Detox(exampledir.join("setup.py"))
+    old = exampledir.chdir()
+    try:
+        return Detox(detox.main.parse([]))
+    finally:
+        old.chdir()
 
 def pytest_funcarg__cmd(request):
     exampledir = request.getfuncargvalue("exampledir")
@@ -65,10 +70,10 @@ class Cmd:
 
     def main(self, *args):
         self.basedir.chdir()
-        return detox.main(args)
+        return detox.main.main(args)
 
     def rundetox(self, *args):
-        self.basedir.chdir()
+        old = self.basedir.chdir()
         script = py.path.local.sysfind("detox")
         assert script, "could not find 'detox' script"
         return self._run(script, *args)

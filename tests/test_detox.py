@@ -59,7 +59,6 @@ class TestResources:
 @pytest.mark.timeout(20)
 class TestDetoxExample1:
     def test_createsdist(self, detox):
-        assert detox.setupfile.check()
         sdist, = detox.getresources("sdist")
         assert sdist.check()
 
@@ -74,18 +73,6 @@ class TestDetoxExample1:
 
 @pytest.mark.example1
 class TestCmdline:
-    def test_version(self, cmd, capfd):
-        pytest.raises(SystemExit, lambda: cmd.main("--version"))
-        out, err = capfd.readouterr()
-        assert detox.__version__ in out
-
-    def test_parse_verbosity(self, capfd):
-        from detox.main import parse
-        opts = parse(["-v"])
-        assert opts.verbosity == 1
-        opts = parse(["-v", "-v"])
-        assert opts.verbosity == 2
-
     @pytest.mark.timeout(20)
     def test_runtests(self, cmd):
         result = cmd.rundetox("-e", "py")

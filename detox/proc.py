@@ -16,22 +16,16 @@ def timelimited(secs, func):
     return func()
 
 class Detox:
-    def __init__(self, setupfile, toxargs=()):
-        setupfile = py.path.local(setupfile)
-        assert setupfile.check()
-        self.setupfile = setupfile
+    def __init__(self, toxconfig):
+        self._toxconfig = toxconfig
         self._resources = Resources(self)
-        self._toxargs = list(toxargs)
 
     @property
     def toxsession(self):
         try:
             return self._toxsession
         except AttributeError:
-            toxini = self.setupfile.dirpath("tox.ini")
-            toxargs = ['-c', str(toxini)] + self._toxargs
-            config = tox._config.parseconfig(toxargs)
-            self._toxsession = tox._cmdline.Session(config, Popen)
+            self._toxsession = tox._cmdline.Session(self._toxconfig, Popen)
             return self._toxsession
 
     def provide_sdist(self):
