@@ -26,7 +26,7 @@ def main():
                      'Programming Language :: Python :: 3'],
         packages=['detox',
         ],
-        install_requires=['tox', 'greenlet>=0.3',],
+        install_requires=['tox>=1.3.dev4', 'greenlet>=0.3',],
         entry_points={'console_scripts': 'detox=detox.main:main'},
     )
 
