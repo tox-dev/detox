@@ -6,7 +6,7 @@ from detox.proc import Detox
 
 def parse(args):
     import tox._config
-    return tox._config.parseconfig(args)
+    return tox._config.parseconfig(args, "detox")
 
 def main(args=None):
     if args is None:
