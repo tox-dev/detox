@@ -9,7 +9,7 @@ def main():
         #long_description = open('README.txt').read(),
         version='0.4.dev2',
         url='http://bitbucket.org/hpk42/detox',
-        license='MIT license',
+        license='AGPL3',
         platforms=['unix', 'linux', 'osx', 'cygwin', 'win32'],
         author='holger krekel',
         author_email='holger at merlinux.eu',
