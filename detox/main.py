@@ -13,4 +13,5 @@ def main(args=None):
         args = sys.argv[1:]
     config = parse(args)
     detox = Detox(config)
-    detox.runtestsmulti(config.envlist)
+    detox.startloopreport()
+    return detox.runtestsmulti(config.envlist)

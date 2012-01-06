@@ -7,7 +7,7 @@ def main():
         name='detox',
         description='distributing tests via tox',
         #long_description = open('README.txt').read(),
-        version='0.4.dev2',
+        version='0.4.dev3',
         url='http://bitbucket.org/hpk42/detox',
         license='AGPL3',
         platforms=['unix', 'linux', 'osx', 'cygwin', 'win32'],
@@ -26,7 +26,7 @@ def main():
                      'Programming Language :: Python :: 3'],
         packages=['detox',
         ],
-        install_requires=['tox>=1.3', 'eventlet>=0.9.16',],
+        install_requires=['tox>=1.3', 'py>=1.4.7.dev3', 'eventlet>=0.9.16',],
         entry_points={'console_scripts': 'detox=detox.main:main'},
     )
 

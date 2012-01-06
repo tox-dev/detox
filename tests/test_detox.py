@@ -75,7 +75,8 @@ class TestDetoxExample1:
 class TestCmdline:
     @pytest.mark.timeout(20)
     def test_runtests(self, cmd):
-        result = cmd.rundetox("-e", "py")
+        result = cmd.rundetox("-e", "py", "-v")
         result.stdout.fnmatch_lines([
-            "*creating*py*",
+            "*py*prepareenv*py*",
+            "*create:*",
         ])
