@@ -1,0 +1,16 @@
+
+syntax:glob
+*.pyc
+*.pyo
+*.swp
+*.html
+*.class
+*.orig
+*.rej
+*~
+
+build
+dist
+doc/_build/
+*tox.egg-info
+.tox

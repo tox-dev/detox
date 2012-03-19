@@ -1,5 +1,4 @@
-
-distributed tox run protope break through
+cross-host tox run protope break through
 --------------------------------------------
 tags: feature hl
 
@@ -22,7 +21,9 @@ this would create activities like this:
 implement a distributed Process abstraction
 ---------------------------------------------
 
-example client-side detox session using "v"resources and vcmd's:
+tags: braindump
+
+example client-side session using "v"resources and vcmd's:
 
     v_sdist = vcmd.getsdistpath() # XXX
     v_venvdir = vcmd.getvenv(label="win32", python="python2.7", deps="...")
