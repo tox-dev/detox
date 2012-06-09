@@ -12,8 +12,8 @@ and configuration that tox has so after installation can just run::
 
     detox
 
-in the same way you would run ``tox``.  For documentation and examples for tox
-please refer to the `tox home page`_.
+in the same way and with the same options with which you would run
+``tox``, see the `tox home page`_ for more info.
 
 .. _`tox home page`: http://tox.testrun.org/
 """
@@ -23,7 +23,7 @@ def main():
         name='detox',
         description='distributing activities of the tox tool',
         long_description = long_description,
-        version='0.4.dev4',
+        version='0.9',
         url='http://bitbucket.org/hpk42/detox',
         license='AGPL3',
         platforms=['unix', 'linux', 'osx', 'cygwin', 'win32'],
@@ -41,8 +41,8 @@ def main():
                      'Programming Language :: Python',
                      'Programming Language :: Python :: 3'],
         packages=['detox', ],
-        install_requires=['tox>=1.4.dev3',
-            'py>=1.4.7.dev3', 'eventlet>=0.9.16',],
+        install_requires=['tox>=1.4.dev9',
+            'py>=1.4.9.dev1', 'eventlet>=0.9.16',],
         entry_points={'console_scripts': 'detox=detox.main:main'},
     )
 

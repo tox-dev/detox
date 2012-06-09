@@ -33,23 +33,33 @@ class FileSpinner:
 
 
 class ToxReporter(tox._cmdline.Reporter):
-    actionchar = "+"
+    sortorder = ("runtests installdeps sdist-reinst sdist-inst sdist-make "
+                 "create recreate".split())
 
     def _loopreport(self):
         filespinner = FileSpinner()
         while 1:
             eventlet.sleep(0.2)
             msg = []
+            ac2popenlist = {}
             for action in self.session._actions:
                 for popen in action._popenlist:
                     if popen.poll() is None:
-                        spinnchar = filespinner.getchar(popen.outpath)
-                        if action.venv:
-                            id = action.venv.envconfig.envname
-                        else:
-                            id = ""
-                        msg.append("%s %s %s" % (
-                            id, action.activity, spinnchar))
+                        l = ac2popenlist.setdefault(action.activity, [])
+                        l.append(popen)
+
+            for acname in self.sortorder:
+                try:
+                    popenlist = ac2popenlist.pop(acname)
+                except KeyError:
+                    continue
+                sublist = []
+                for popen in popenlist:
+                    name = getattr(popen.action.venv, 'name', "GLOB")
+                    char = filespinner.getchar(popen.outpath)
+                    sublist.append("%s%s" % (name, char))
+                msg.append("%s %s" % (acname, " ".join(sublist)))
+            assert not ac2popenlist, ac2popenlist
             if msg:
                 self.tw.reline("   ".join(msg))
 
