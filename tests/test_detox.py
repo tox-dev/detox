@@ -77,6 +77,6 @@ class TestCmdline:
     def test_runtests(self, cmd):
         result = cmd.rundetox("-e", "py", "-v")
         result.stdout.fnmatch_lines([
-            "*py*prepareenv*py*",
-            "*create:*",
+            "py*getenv*",
+            "py*create:*",
         ])

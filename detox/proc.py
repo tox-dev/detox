@@ -36,6 +36,10 @@ class ToxReporter(tox._cmdline.Reporter):
     sortorder = ("runtests installdeps sdist-reinst sdist-inst sdist-make "
                  "create recreate".split())
 
+    def __init__(self, session):
+        super(ToxReporter, self).__init__(session)
+        self._actionmayfinish = set()
+
     def _loopreport(self):
         filespinner = FileSpinner()
         while 1:
@@ -47,6 +51,9 @@ class ToxReporter(tox._cmdline.Reporter):
                     if popen.poll() is None:
                         l = ac2popenlist.setdefault(action.activity, [])
                         l.append(popen)
+                if not action._popenlist and action in self._actionmayfinish:
+                    super(ToxReporter, self).logaction_finish(action)
+                    self._actionmayfinish.remove(action)
 
             for acname in self.sortorder:
                 try:
@@ -69,9 +76,16 @@ class ToxReporter(tox._cmdline.Reporter):
 
         def generic_report(*args):
             self._calls.append((name,)+args)
-            if self.config.opts.verbosity >= 2:
+            if self.config.option.verbosity >= 2:
                 print ("%s" %(self._calls[-1], ))
         return generic_report
+
+    def logaction_finish(self, action):
+        if action._popenlist:
+            # defer finishing output to spinner loop
+            self._actionmayfinish.add(action)
+        else:
+            super(ToxReporter, self).logaction_finish(action)
 
     #def logpopen(self, popen):
     #    self._tw.line(msg)
@@ -103,21 +117,31 @@ class Detox:
 
     def provide_venv(self, venvname):
         venv = self.toxsession.getvenv(venvname)
-        self.toxsession.setupenv(venv, None)
-        return venv
+        if self.toxsession.setupenv(venv):
+            return venv
+
+    def provide_installsdist(self, venvname, sdistpath):
+        venv = self.toxsession.getvenv(venvname)
+        return self.toxsession.installsdist(venv, sdistpath)
 
     def runtests(self, venvname):
+        if self.toxsession.config.option.sdistonly:
+            self._sdistpath = self.getresources("sdist")
+            return
         venv, sdist = self.getresources("venv:%s" % venvname, "sdist")
-        venv.install_sdist(sdist)
-        self.toxsession.runtestenv(venv, sdist, redirect=True)
+        self._sdistpath = sdist
+        if venv and sdist:
+            if self.toxsession.installsdist(venv, sdist):
+                self.toxsession.runtestenv(venv, sdist, redirect=True)
 
     def runtestsmulti(self, envlist):
         pool = GreenPool()
         for env in envlist:
             pool.spawn_n(self.runtests, env)
         pool.waitall()
-        retcode = self._toxsession._summary()
-        return retcode
+        if not self.toxsession.config.option.sdistonly:
+            retcode = self._toxsession._summary()
+            return retcode
 
     def getresources(self, *specs):
         return self._resources.getresources(*specs)
@@ -130,7 +154,7 @@ class Resources:
         self._resources = {}
 
     def _dispatchprovider(self, spec):
-        parts = spec.split(":", 1)
+        parts = spec.split(":")
         name = parts.pop(0)
         provider = getattr(self._providerbase, "provide_" + name)
         self._resources[spec] = res = provider(*parts)
