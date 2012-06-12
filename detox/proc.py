@@ -33,8 +33,8 @@ class FileSpinner:
 
 
 class ToxReporter(tox._cmdline.Reporter):
-    sortorder = ("runtests installdeps sdist-reinst sdist-inst sdist-make "
-                 "create recreate".split())
+    sortorder = ("runtests command installdeps sdist-reinst sdist-inst "
+        "sdist-make create recreate".split())
 
     def __init__(self, session):
         super(ToxReporter, self).__init__(session)
