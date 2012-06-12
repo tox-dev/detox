@@ -68,7 +68,10 @@ class ToxReporter(tox._cmdline.Reporter):
                 msg.append("%s %s" % (acname, " ".join(sublist)))
             assert not ac2popenlist, ac2popenlist
             if msg:
-                self.tw.reline("   ".join(msg))
+                msg = "   ".join(msg)
+                if len(msg) >= self.tw.fullwidth:
+                    msg = msg[:self.tw.fullwidth-3]+".."
+                self.tw.reline(msg)
 
     def __getattr__(self, name):
         if name[0] == "_":
