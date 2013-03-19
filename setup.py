@@ -23,7 +23,7 @@ def main():
         name='detox',
         description='distributing activities of the tox tool',
         long_description = long_description,
-        version='0.9.1.dev3',
+        version='0.9.1',
         url='http://bitbucket.org/hpk42/detox',
         license='AGPL3',
         platforms=['unix', 'linux', 'osx', 'cygwin', 'win32'],
