@@ -27,7 +27,7 @@ example client-side session using "v"resources and vcmd's:
 
     v_sdist = vcmd.getsdistpath() # XXX
     v_venvdir = vcmd.getvenv(label="win32", python="python2.7", deps="...")
-    v_unpackdir = vcmd.installsdist(v_venvdir, v_sdist)
+    v_unpackdir = vcmd.installpkg(v_venvdir, v_sdist)
     v_process = vcmd.runprocess(v_venvdir, ["testcmd", "arg2", ...], 
         # XXX stdin/stdout/stderr redir?!
         chdir=v_unpackdir)

@@ -23,7 +23,7 @@ def main():
         name='detox',
         description='distributing activities of the tox tool',
         long_description = long_description,
-        version='0.9.1.dev',
+        version='0.9.1.dev3',
         url='http://bitbucket.org/hpk42/detox',
         license='AGPL3',
         platforms=['unix', 'linux', 'osx', 'cygwin', 'win32'],
@@ -41,8 +41,8 @@ def main():
                      'Programming Language :: Python',
                      'Programming Language :: Python :: 3'],
         packages=['detox', ],
-        install_requires=['tox>=1.4.dev11',
-            'py>=1.4.9.dev1', 'eventlet>=0.9.16',],
+        install_requires=['tox>=1.4.3',
+            'py>=1.4.13', 'eventlet>=0.9.16',],
         entry_points={'console_scripts': 'detox=detox.main:main'},
     )
 

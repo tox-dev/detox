@@ -33,7 +33,7 @@ class FileSpinner:
 
 
 class ToxReporter(tox._cmdline.Reporter):
-    sortorder = ("runtests command installdeps sdist-reinst sdist-inst "
+    sortorder = ("runtests command installdeps installpkg inst inst-nodeps "
         "sdist-make create recreate".split())
 
     def __init__(self, session):
@@ -62,7 +62,7 @@ class ToxReporter(tox._cmdline.Reporter):
                     continue
                 sublist = []
                 for popen in popenlist:
-                    name = getattr(popen.action.venv, 'name', "GLOB")
+                    name = getattr(popen.action.venv, 'name', "INLINE")
                     char = filespinner.getchar(popen.outpath)
                     sublist.append("%s%s" % (name, char))
                 msg.append("%s %s" % (acname, " ".join(sublist)))
@@ -123,9 +123,9 @@ class Detox:
         if self.toxsession.setupenv(venv):
             return venv
 
-    def provide_installsdist(self, venvname, sdistpath):
+    def provide_installpkg(self, venvname, sdistpath):
         venv = self.toxsession.getvenv(venvname)
-        return self.toxsession.installsdist(venv, sdistpath)
+        return self.toxsession.installpkg(venv, sdistpath)
 
     def runtests(self, venvname):
         if self.toxsession.config.option.sdistonly:
@@ -134,7 +134,7 @@ class Detox:
         venv, sdist = self.getresources("venv:%s" % venvname, "sdist")
         self._sdistpath = sdist
         if venv and sdist:
-            if self.toxsession.installsdist(venv, sdist):
+            if self.toxsession.installpkg(venv, sdist):
                 self.toxsession.runtestenv(venv, sdist, redirect=True)
 
     def runtestsmulti(self, envlist):
