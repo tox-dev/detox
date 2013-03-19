@@ -1,7 +1,5 @@
 include CHANGELOG
-include README.rst
 include setup.py
 include tox.ini
 include LICENSE
-graft doc
-graft testing
+graft tests
