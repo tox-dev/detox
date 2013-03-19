@@ -116,7 +116,10 @@ class Detox:
             return self._toxsession
 
     def provide_sdist(self):
-        return self.toxsession.sdist()
+        sdistpath = self.toxsession.sdist()
+        if not sdistpath:
+            raise SystemExit(1)
+        return sdistpath
 
     def provide_venv(self, venvname):
         venv = self.toxsession.getvenv(venvname)
