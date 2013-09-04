@@ -50,7 +50,7 @@ def main():
                      'Programming Language :: Python',
                      ],
         packages=['detox', ],
-        install_requires=['tox>=1.4.3',
+        install_requires=['tox>=1.6.1',
             'py>=1.4.13', 'eventlet>=0.9.16',],
         entry_points={'console_scripts': 'detox=detox.main:main'},
     )
