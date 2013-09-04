@@ -39,7 +39,7 @@ def main():
                      'Topic :: Software Development :: Libraries',
                      'Topic :: Utilities',
                      'Programming Language :: Python',
-                     'Programming Language :: Python :: 3'],
+                     ],
         packages=['detox', ],
         install_requires=['tox>=1.4.3',
             'py>=1.4.13', 'eventlet>=0.9.16',],

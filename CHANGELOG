@@ -4,6 +4,10 @@
 - fix issue6: quickly make detox work with tox-1.6 again (although not all 1.6 features
   supported, e.g. --develop does not work)
 
+- fix issue3: don't claim a TROVE identifier of "python3" because detox
+  itself depends on eventlet which does not work on py3 yet. (Nevertheless
+  detox will create py3 environments through tox of course)
+
 0.9.2
 -----------------------
 
