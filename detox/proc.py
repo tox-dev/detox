@@ -138,7 +138,7 @@ class Detox:
         self._sdistpath = sdist
         if venv and sdist:
             if self.toxsession.installpkg(venv, sdist):
-                self.toxsession.runtestenv(venv, sdist, redirect=True)
+                self.toxsession.runtestenv(venv, redirect=True)
 
     def runtestsmulti(self, envlist):
         pool = GreenPool()

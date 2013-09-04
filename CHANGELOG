@@ -1,3 +1,9 @@
+0.9.3
+-----------------------
+
+- fix issue6: quickly make detox work with tox-1.6 again (although not all 1.6 features
+  supported, e.g. --develop does not work)
+
 0.9.2
 -----------------------
 
