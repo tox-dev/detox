@@ -8,6 +8,10 @@
   itself depends on eventlet which does not work on py3 yet. (Nevertheless
   detox will create py3 environments through tox of course)
 
+- fix issue1: support python2.5 again (although we might drop it in the
+  future -- it's enough of tox/detox can _create_ and handle py25 environments,
+  they don't neccessarily need to support running themselv on py25)
+
 0.9.2
 -----------------------
 

@@ -55,9 +55,9 @@ class TestResources:
         assert a == 42
         assert d == 23
 
-@pytest.mark.example1
-@pytest.mark.timeout(20)
 class TestDetoxExample1:
+    pytestmark = [pytest.mark.example1, pytest.mark.timeout(20)]
+
     def test_createsdist(self, detox):
         sdist, = detox.getresources("sdist")
         assert sdist.check()
@@ -71,8 +71,8 @@ class TestDetoxExample1:
     def test_test(self, detox):
         detox.runtests("py")
 
-@pytest.mark.example1
 class TestCmdline:
+    pytestmark = [pytest.mark.example1]
     @pytest.mark.timeout(20)
     def test_runtests(self, cmd):
         result = cmd.rundetox("-e", "py", "-v", "-v")

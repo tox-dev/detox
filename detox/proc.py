@@ -1,3 +1,5 @@
+from __future__ import with_statement
+
 import eventlet
 import sys
 import py
