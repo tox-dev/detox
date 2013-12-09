@@ -1,3 +1,10 @@
+unreleased
+-----------------------
+
+- make detox honor skipsdist.  Thanks Timoth Messier for the PR.
+
+- change license to MIT
+
 0.9.3
 -----------------------
 
