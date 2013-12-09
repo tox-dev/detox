@@ -71,6 +71,12 @@ class TestDetoxExample1:
     def test_test(self, detox):
         detox.runtests("py")
 
+class TestDetoxExample2:
+    pytestmark = [pytest.mark.example2, pytest.mark.timeout(20)]
+
+    def test_test(self, detox):
+        detox.runtests("py")
+
 class TestCmdline:
     pytestmark = [pytest.mark.example1]
     @pytest.mark.timeout(20)

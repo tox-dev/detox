@@ -33,8 +33,20 @@ def create_example1(tmpdir):
     """))
     tmpdir.join("example1", "__init__.py").ensure()
 
+
+def create_example2(tmpdir):
+    tmpdir.join("tox.ini").write(d("""
+        [tox]
+        skipsdist = True
+
+        [testenv:py]
+    """))
+    tmpdir.join("example2", "__init__.py").ensure()
+
+
 def pytest_configure(config):
     config.addinivalue_line("markers", "example1: use example1 for setup")
+    config.addinivalue_line("markers", "example2: use example2 for setup")
     config.addinivalue_line("markers", "timeout(N): stop test function "
         "after N seconds, throwing a Timeout.")
 

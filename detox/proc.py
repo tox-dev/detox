@@ -137,7 +137,7 @@ class Detox:
             self._sdistpath = self.getresources("sdist")
             return
         if self.toxsession.config.skipsdist:
-            venv = self.getresources("venv:%s" % venvname)[0]
+            venv, = self.getresources("venv:%s" % venvname)
             if venv:
                 self.toxsession.runtestenv(venv, redirect=True)
         else:
