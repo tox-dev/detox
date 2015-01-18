@@ -3,7 +3,6 @@ from __future__ import with_statement
 import eventlet
 import sys
 import py
-from eventlet.processes import Process, DeadProcess
 from eventlet.timeout import Timeout
 from eventlet.green.subprocess import Popen, PIPE, STDOUT
 from eventlet import GreenPool
