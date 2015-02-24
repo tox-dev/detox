@@ -1,5 +1,8 @@
-unreleased
+0.9.4
 -----------------------
+
+- get compatible again to eventlet by avoiding to import
+  eventlet.processes, thanks Takeshi Komiya for the PR.
 
 - make detox honor skipsdist.  Thanks Timoth Messier for the PR.
 
