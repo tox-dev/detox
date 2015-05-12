@@ -7,8 +7,7 @@ from eventlet.timeout import Timeout
 from eventlet.green.subprocess import Popen, PIPE, STDOUT
 from eventlet import GreenPool
 import eventlet
-import tox._config
-import tox._cmdline
+import tox.session
 
 def timelimited(secs, func):
     if secs is not None:
@@ -33,7 +32,7 @@ class FileSpinner:
         return self.chars[charindex % len(self.chars)]
 
 
-class ToxReporter(tox._cmdline.Reporter):
+class ToxReporter(tox.session.Reporter):
     sortorder = ("runtests command installdeps installpkg inst inst-nodeps "
         "sdist-make create recreate".split())
 
@@ -112,12 +111,12 @@ class Detox:
         try:
             return self._toxsession
         except AttributeError:
-            self._toxsession = tox._cmdline.Session(
+            self._toxsession = tox.session.Session(
                 self._toxconfig, Report=ToxReporter, popen=Popen)
             return self._toxsession
 
     def provide_sdist(self):
-        sdistpath = self.toxsession.sdist()
+        sdistpath = self.toxsession.get_installpkg_path()
         if not sdistpath:
             raise SystemExit(1)
         return sdistpath
