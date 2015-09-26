@@ -30,7 +30,7 @@ Please file issues as "tox" issues using the "detox" component:
 def main():
     setup(
         name='detox',
-        description='distributing activities of the tox tool (py2 only)',
+        description='distributing activities of the tox tool',
         long_description = long_description,
         version='0.10.0',
         url='http://bitbucket.org/hpk42/detox',
