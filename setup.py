@@ -15,9 +15,9 @@ and configuration that tox has so after installation can just run::
 in the same way and with the same options with which you would run
 ``tox``, see the `tox home page`_ for more info.
 
-Please file issues as "tox" issues using the "detox" component:
+Please file issues as "tox" issues using the "detox" label:
 
-    https://bitbucket.org/hpk42/tox/issues
+    https://github.com/tox-dev/tox/issues
 
 .. note::
 
