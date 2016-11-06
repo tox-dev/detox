@@ -15,22 +15,22 @@ and configuration that tox has so after installation can just run::
 in the same way and with the same options with which you would run
 ``tox``, see the `tox home page`_ for more info.
 
-Please file issues as "tox" issues using the "detox" component:
+Please file issues as "tox" issues using the "detox" label:
 
-    https://github.com/tox-dev/tox
+    https://github.com/tox-dev/tox/issues
 
 .. note::
 
     detox runs only on python2.6 and python2.7 (but supports creation of
     python3 and all environments supported of the underlying "tox" command)
 
-.. _`tox home page`: http://tox.testrun.org/
+.. _`tox home page`: http://tox.readthedocs.org
 """
 
 def main():
     setup(
         name='detox',
-        description='distributing activities of the tox tool (py2 only)',
+        description='distributing activities of the tox tool',
         long_description = long_description,
         version='0.10.0',
         url='http://bitbucket.org/hpk42/detox',
