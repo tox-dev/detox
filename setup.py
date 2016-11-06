@@ -17,7 +17,7 @@ in the same way and with the same options with which you would run
 
 Please file issues as "tox" issues using the "detox" component:
 
-    https://bitbucket.org/hpk42/tox/issues
+    https://github.com/tox-dev/tox
 
 .. note::
 
