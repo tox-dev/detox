@@ -2,7 +2,7 @@ import os, sys
 
 from setuptools import setup
 
-long_description="""
+long_description = """
 What is detox?
 ==========================
 
@@ -31,7 +31,7 @@ def main():
     setup(
         name='detox',
         description='distributing activities of the tox tool',
-        long_description = long_description,
+        long_description=long_description,
         version='0.10.0',
         url='http://bitbucket.org/hpk42/detox',
         license='MIT',
@@ -52,7 +52,9 @@ def main():
         packages=['detox', ],
         install_requires=['tox>=2.0.0,<3.0.0',
             'py>=1.4.27', 'eventlet>=0.15.0',],
-        entry_points={'console_scripts': 'detox=detox.main:main'},
+        py_modules=['tox_proclimit'],
+        entry_points={'console_scripts': 'detox=detox.main:main',
+                      'tox': ['proclimit = detox.tox_proclimit']},
     )
 
 if __name__ == '__main__':
