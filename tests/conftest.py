@@ -44,6 +44,26 @@ def create_example2(tmpdir):
     tmpdir.join("example2", "__init__.py").ensure()
 
 
+def create_example3(tmpdir):
+    tmpdir.join("tox.ini").write(d("""
+        [tox]
+        skipsdist = True
+
+        [testenv]
+        commands = python -c 'import time; time.sleep(1)'
+
+        [testenv:py1]
+        [testenv:py2]
+        [testenv:py3]
+        [testenv:py4]
+        [testenv:py5]
+        [testenv:py6]
+        [testenv:py7]
+        [testenv:py8]
+    """))
+    tmpdir.join("example3", "__init__.py").ensure()
+
+
 def pytest_configure(config):
     config.addinivalue_line("markers", "example1: use example1 for setup")
     config.addinivalue_line("markers", "example2: use example2 for setup")

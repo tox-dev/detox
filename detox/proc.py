@@ -161,7 +161,7 @@ class Resources:
     def __init__(self, providerbase):
         self._providerbase = providerbase
         self._spec2thread = {}
-        self._pool = GreenPool(1000)
+        self._pool = GreenPool()
         self._resources = {}
 
     def _dispatchprovider(self, spec):
