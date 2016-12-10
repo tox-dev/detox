@@ -1,3 +1,9 @@
+0.11.0
+-----------------------
+
+- add "-n NUM" option to limit number of processes.  Thanks Timothée
+  Mazzucotelli.
+
 0.10.0
 -----------------------
 
