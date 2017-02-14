@@ -54,12 +54,6 @@ def create_example3(tmpdir):
 
         [testenv:py1]
         [testenv:py2]
-        [testenv:py3]
-        [testenv:py4]
-        [testenv:py5]
-        [testenv:py6]
-        [testenv:py7]
-        [testenv:py8]
     """))
     tmpdir.join("example3", "__init__.py").ensure()
 
@@ -171,4 +165,3 @@ def test_hang(testdir):
     result = testdir.runpytest()
     assert "failed to timeout" not in result.stdout.str()
     result.stdout.fnmatch_lines(["*Timeout: 0.01*"])
-

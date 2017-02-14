@@ -13,10 +13,12 @@ def tox_addoption(parser):
                 "%s is an invalid positive int value" % value)
         return ivalue
 
+    num_proc = multiprocessing.cpu_count()
     parser.add_argument(
         "-n", "--num",
         type=positive_integer,
         action="store",
-        default=multiprocessing.cpu_count(),
-        dest="proclimit",
-        help="limit the number of concurrent processes.")
+        default=num_proc,
+        dest="numproc",
+        help="set the number of concurrent processes "
+             "(default %s)." % num_proc)

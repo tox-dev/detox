@@ -1,7 +1,7 @@
 0.11.0
 -----------------------
 
-- add "-n NUM" option to limit number of processes.  Thanks Timothée
+- add "-n NUMPROC" option to set number of processes.  Thanks Timothée
   Mazzucotelli.
 
 0.10.0
@@ -41,7 +41,7 @@
 0.9.1
 -----------------------
 
-- fix issue5 - small adjustments to work with latest tox-1.4.3 version 
+- fix issue5 - small adjustments to work with latest tox-1.4.3 version
 
 0.9
 -----------------------
