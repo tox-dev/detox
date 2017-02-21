@@ -1,8 +1,11 @@
 0.11.0
 -----------------------
 
-- add "-n NUMPROC" option to set number of processes.  Thanks Timothée
-  Mazzucotelli.
+- (infrastructure) add Travis CI setup.
+  Thanks Timothée Mazzucotelli (@Pawamoy).
+  
+- add "-n NUMPROC" option to set number of processes.  
+  Thanks Timothée Mazzucotelli (@Pawamoy).
 
 0.10.0
 -----------------------
