@@ -96,7 +96,7 @@ class TestProcLimitOption:
     def test_runtestmulti(self):
         class MyConfig:
             class MyOption:
-                proclimit = 4
+                numproc = 7
             option = MyOption()
 
         l = []
@@ -115,20 +115,20 @@ class TestProcLimitOption:
             d.runtestsmulti(['env1', 'env2', 'env3'])  # Fake env list
 
         assert l[0] == {}  # When building Detox object
-        assert l[1] == {'size': 4}  # When calling runtestsmulti
+        assert l[1] == {'size': 7}  # When calling runtestsmulti
 
-    @pytest.mark.timeout(30)
+    @pytest.mark.timeout(60)
     def test_runtests(self, cmd):
         now1 = datetime.now()
-        cmd.rundetox("-n", "1", "-epy1,py2,py3,py4,py5,py6,py7,py8")
+        cmd.rundetox("-n", "1", "-epy1,py2")
         then1 = datetime.now()
         delta1 = then1 - now1
-        assert delta1 >= timedelta(seconds=8)
+        assert delta1 >= timedelta(seconds=2)
 
-        now4 = datetime.now()
-        cmd.rundetox("-n", "4", "-epy1,py2,py3,py4,py5,py6,py7,py8")
-        then4 = datetime.now()
-        delta4 = then4 - now4
-        assert delta4 >= timedelta(seconds=2)
+        now2 = datetime.now()
+        cmd.rundetox("--num", "2", "-epy1,py2")
+        then2 = datetime.now()
+        delta2 = then2 - now2
+        assert delta2 >= timedelta(seconds=1)
 
-        assert delta1 >= delta4, 'pool size=4 took much time than pool size=1'
+        assert delta1 >= delta2, 'pool size=2 took much time than pool size=1'

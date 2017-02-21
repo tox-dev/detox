@@ -146,7 +146,7 @@ class Detox:
                     self.toxsession.runtestenv(venv, redirect=True)
 
     def runtestsmulti(self, envlist):
-        pool = GreenPool(size=self._toxconfig.option.proclimit)
+        pool = GreenPool(size=self._toxconfig.option.numproc)
         for env in envlist:
             pool.spawn_n(self.runtests, env)
         pool.waitall()
