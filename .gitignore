@@ -1,0 +1,5 @@
+*~
+/.cache/
+/.tox/
+/detox.egg-info/
+**/__pycache__/
