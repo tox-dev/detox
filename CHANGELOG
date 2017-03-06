@@ -1,11 +1,15 @@
 0.11.0
 -----------------------
 
+- #406: Add support for running detox as python -m detox
+  Thanks André Caron (@AndreLouisCaron).
+
 - (infrastructure) add Travis CI setup.
   Thanks Timothée Mazzucotelli (@Pawamoy).
   
 - add "-n NUMPROC" option to set number of processes.  
   Thanks Timothée Mazzucotelli (@Pawamoy).
+  
 
 0.10.0
 -----------------------
