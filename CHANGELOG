@@ -7,7 +7,9 @@
 - (infrastructure) add Travis CI setup.
   Thanks Timothée Mazzucotelli (@Pawamoy).
   
-- add "-n NUMPROC" option to set number of processes.  
+- add "-n NUMPROC" option to set number of processes.  The default
+  is the number of CPUs as determined by multiprocessing.cpu_count()
+  or "2" if the call does not work (e.g. on py27/windows).
   Thanks Timothée Mazzucotelli (@Pawamoy).
   
 
