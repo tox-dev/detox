@@ -33,7 +33,7 @@ def main():
         description='distributing activities of the tox tool',
         long_description=long_description,
         version='0.11',
-        url='http://bitbucket.org/hpk42/detox',
+        url='https://github.com/tox-dev/detox',
         license='MIT',
         platforms=['unix', 'linux', 'osx', 'cygwin', 'win32'],
         author='holger krekel',
