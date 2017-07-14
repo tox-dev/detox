@@ -1,12 +1,9 @@
 from __future__ import with_statement
 
 import eventlet
-import sys
-import py
 from eventlet.timeout import Timeout
 from eventlet.green.subprocess import Popen, PIPE, STDOUT
 from eventlet import GreenPool
-import eventlet
 import tox.session
 
 def timelimited(secs, func):

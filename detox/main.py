@@ -1,5 +1,4 @@
 import sys
-import argparse
 import py
 import detox
 from detox.proc import Detox
