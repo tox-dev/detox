@@ -144,9 +144,13 @@ class Detox:
 
     def runtestsmulti(self, envlist):
         pool = GreenPool(size=self._toxconfig.option.numproc)
+        threads = []
         for env in envlist:
-            pool.spawn_n(self.runtests, env)
-        pool.waitall()
+            threads.append(pool.spawn(self.runtests, env))
+
+        for t in threads:
+            # re-raises any exceptions of the worker thread
+            t.wait()
         if not self.toxsession.config.option.sdistonly:
             retcode = self._toxsession._summary()
             return retcode
