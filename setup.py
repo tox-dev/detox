@@ -50,7 +50,7 @@ def main():
                      'Programming Language :: Python',
                      ],
         packages=['detox', ],
-        install_requires=['tox>=2.0.0,<3.0.0',
+        install_requires=['tox>=2,<4',
             'py>=1.4.27', 'eventlet>=0.15.0',],
         entry_points={'console_scripts': 'detox=detox.main:main',
                       'tox': ['proclimit = detox.tox_proclimit']},
