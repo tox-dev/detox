@@ -14,4 +14,4 @@ Please file issues as ["tox" issues](https://github.com/tox-dev/tox/issues) usin
 
 ## Note
 
-detox runs on python2.7 and python3.5+ (but supports creation of all environments supported of the underlying "tox" command)
+detox runs on python2.7 and python3.4+ (but supports creation of all environments supported of the underlying "tox" command)
