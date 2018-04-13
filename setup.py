@@ -21,8 +21,8 @@ Please file issues as "tox" issues using the "detox" label:
 
 .. note::
 
-    detox runs only on python2.6 and python2.7 (but supports creation of
-    python3 and all environments supported of the underlying "tox" command)
+    detox runs on python2.7 and python3.4+ (but supports creation of
+    all environments supported of the underlying "tox" command)
 
 .. _`tox home page`: http://tox.readthedocs.org
 """
@@ -44,6 +44,11 @@ def main():
                      'Operating System :: POSIX',
                      'Operating System :: Microsoft :: Windows',
                      'Operating System :: MacOS :: MacOS X',
+                     'Programming Language :: Python :: 2.7',
+                     'Programming Language :: Python :: 3.4',
+                     'Programming Language :: Python :: 3.5',
+                     'Programming Language :: Python :: 3.6',
+                     'Programming Language :: Python :: 3.7',
                      'Topic :: Software Development :: Testing',
                      'Topic :: Software Development :: Libraries',
                      'Topic :: Utilities',
