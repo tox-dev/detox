@@ -1,3 +1,13 @@
+0.12.0
+-----------------------
+
+- (fix `#792 <https://github.com/tox-dev/tox/issues/792>`_) bump tox version constraint
+  to <4.0 - by Pi Delport
+- support and test with Python 2.7, 3.4+ - by Miro Hrončok
+- fix project url to point ot github - by Neil Halelamien
+- remove some unused imports - by Nir Soffer
+
+
 0.11.0
 -----------------------
 
@@ -6,12 +16,12 @@
 
 - (infrastructure) add Travis CI setup.
   Thanks Timothée Mazzucotelli (@Pawamoy).
-  
+
 - add "-n NUMPROC" option to set number of processes.  The default
   is the number of CPUs as determined by multiprocessing.cpu_count()
   or "2" if the call does not work (e.g. on py27/windows).
   Thanks Timothée Mazzucotelli (@Pawamoy).
-  
+
 
 0.10.0
 -----------------------
