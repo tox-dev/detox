@@ -1,5 +1,3 @@
-import os, sys
-
 from setuptools import setup
 
 long_description = """
@@ -26,6 +24,7 @@ Please file issues as "tox" issues using the "detox" label:
 
 .. _`tox home page`: http://tox.readthedocs.org
 """
+
 
 def main():
     setup(
@@ -55,11 +54,11 @@ def main():
                      'Programming Language :: Python',
                      ],
         packages=['detox', ],
-        install_requires=['tox>=2,<4',
-            'py>=1.4.27', 'eventlet>=0.15.0',],
+        install_requires=['tox>=2,<4', 'py>=1.4.27', 'eventlet>=0.15.0'],
         entry_points={'console_scripts': 'detox=detox.main:main',
                       'tox': ['proclimit = detox.tox_proclimit']},
     )
+
 
 if __name__ == '__main__':
     main()
