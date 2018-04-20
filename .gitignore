@@ -3,3 +3,5 @@
 /.tox/
 /detox.egg-info/
 **/__pycache__/
+build/*
+dist/*
