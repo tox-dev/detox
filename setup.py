@@ -36,7 +36,7 @@ def main():
         license='MIT',
         platforms=['unix', 'linux', 'osx', 'cygwin', 'win32'],
         author='holger krekel',
-        author_email='holger at merlinux.eu',
+        author_email='holger@merlinux.eu',
         classifiers=['Development Status :: 4 - Beta',
                      'Intended Audience :: Developers',
                      'License :: OSI Approved :: MIT License',
