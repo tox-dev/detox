@@ -15,11 +15,10 @@ before_install:
   - uname -a
   - lsb_release -a
 install:
-  - pip install tox
-  - virtualenv --version
-  - easy_install --version
-  - pip --version
+  - pip install -U --pre tox
   - tox --version
+  - virtualenv --version
+  - pip --version
 script:
   - tox -e py
 after_failure:
