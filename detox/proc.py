@@ -13,7 +13,7 @@ def timelimited(secs, func):
     return func()
 
 class FileSpinner:
-    chars = "- \ | / - \ | /".split()
+    chars = r"- \ | / - \ | /".split()
     def __init__(self):
         self.path2last = {}
 
