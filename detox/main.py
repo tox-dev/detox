@@ -20,4 +20,4 @@ def main(args=None):
     #detox.toxsession.report.line(
     #    "detox speed-up: %.2f (elapsed %.2f, cumulated %.2f)" % (
     #        cumulated / elapsed, elapsed, cumulated), bold=True)
-    raise SystemExit(retcode)
+    return retcode
