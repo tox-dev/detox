@@ -38,7 +38,7 @@ def main():
         author='holger krekel',
         author_email='holger@merlinux.eu',
         classifiers=['Development Status :: 4 - Beta',
-                     'Framework:: tox',
+                     'Framework :: tox',
                      'Intended Audience :: Developers',
                      'License :: OSI Approved :: MIT License',
                      'Operating System :: POSIX',
