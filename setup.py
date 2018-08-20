@@ -31,7 +31,7 @@ def main():
         name='detox',
         description='distributing activities of the tox tool',
         long_description=long_description,
-        version='0.12',
+        version='0.13',
         url='https://github.com/tox-dev/detox',
         license='MIT',
         platforms=['unix', 'linux', 'osx', 'cygwin', 'win32'],
