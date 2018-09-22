@@ -1,5 +1,7 @@
 [![Build Status](https://travis-ci.org/tox-dev/detox.svg?branch=master)](https://travis-ci.org/tox-dev/detox)
 
+**Please note: this project needs some serious TLC - see [this issue](https://github.com/tox-dev/detox/issues/27).**
+
 # What is detox?
 
 detox is the distributed version of [tox](https://pypi.org/project/tox/).  It makes efficient use of multiple CPUs by running all possible activities in parallel.  It has the same options and configuration that tox has so after installation can just run:
