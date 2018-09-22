@@ -1,3 +1,10 @@
+0.15
+-----------------------
+
+- (fix `#23 <https://github.com/tox-dev/detox/issues/23>`_) do not swallow exceptions - by @vlaci
+- (fix `#16 <https://github.com/tox-dev/detox/issues/16>`_) use tox quiet level to make detox quiet - by Oliver Bestwalter
+
+
 0.14.post3
 -----------------------
 
