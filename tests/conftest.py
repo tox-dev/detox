@@ -1,15 +1,16 @@
 from __future__ import with_statement, print_function
-import pytest
-import py
-import time
+
 import sys
+import time
+
 import eventlet
-import detox
+import py
+import pytest
 from eventlet.green.subprocess import Popen
 from textwrap import dedent as d
+
 from detox.proc import Detox
-from _pytest.pytester import RunResult, getdecoded
-import detox.main
+from detox.main import main as detox_main, parse as detox_parse
 
 pytest_plugins = "pytester"
 
@@ -63,28 +64,28 @@ def pytest_configure(config):
     config.addinivalue_line("markers", "timeout(N): stop test function "
         "after N seconds, throwing a Timeout.")
 
-def pytest_funcarg__exampledir(request):
-    tmpdir = request.getfuncargvalue("tmpdir")
+@pytest.fixture
+def exampledir(request, tmpdir):
     for x in dir(request.function):
         if x.startswith("example"):
             exampledir = tmpdir.mkdir(x)
             globals()["create_"+x](exampledir)
-            print ("%s created at %s" %(x,exampledir))
+            print("%s created at %s" %(x,exampledir))
             break
     else:
         raise request.LookupError("test function has example")
     return exampledir
 
-def pytest_funcarg__detox(request):
-    exampledir = request.getfuncargvalue("exampledir")
+@pytest.fixture
+def detox(exampledir):
     old = exampledir.chdir()
     try:
-        return Detox(detox.main.parse([]))
+        return Detox(detox_parse([]))
     finally:
         old.chdir()
 
-def pytest_funcarg__cmd(request):
-    exampledir = request.getfuncargvalue("exampledir")
+@pytest.fixture
+def cmd(request, exampledir):
     cmd = Cmd(exampledir, request)
     return cmd
 
@@ -96,15 +97,17 @@ class Cmd:
 
     def main(self, *args):
         self.basedir.chdir()
-        return detox.main.main(args)
+        return detox_main(args)
 
     def rundetox(self, *args):
-        old = self.basedir.chdir()
+        self.basedir.chdir()
         script = py.path.local.sysfind("detox")
         assert script, "could not find 'detox' script"
         return self._run(script, *args)
 
     def _run(self, *cmdargs):
+        from _pytest.pytester import RunResult, getdecoded
+
         cmdargs = [str(x) for x in cmdargs]
         p1 = self.tmpdir.join("stdout")
         p2 = self.tmpdir.join("stderr")
@@ -154,7 +157,7 @@ def test_pyfuncall():
 def test_hang(testdir):
     p = py.path.local(__file__).dirpath('conftest.py')
     p.copy(testdir.tmpdir.join(p.basename))
-    t = testdir.makepyfile("""
+    testdir.makepyfile("""
         import pytest
         from eventlet.green import time
         @pytest.mark.timeout(0.01)
