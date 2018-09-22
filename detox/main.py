@@ -19,5 +19,6 @@ def main(args=None):
         return
     config = parse(args)
     detox = Detox(config)
-    detox.startloopreport()
+    if not hasattr(config.option, "quiet_level") or not config.option.quiet_level:
+        detox.startloopreport()
     return detox.runtestsmulti(config.envlist)
