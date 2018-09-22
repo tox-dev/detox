@@ -1,3 +1,8 @@
+0.14.post2
+-----------------------
+
+- *sigh* replace hardcoded long description with actual content of `README.md`
+
 0.14.post1
 -----------------------
 
@@ -6,6 +11,7 @@
 0.14.0
 -----------------------
 
+- (fix `#15 <https://github.com/tox-dev/detox/issues/15>`_) make detox aware of new way to fetch a package in tox 3.3 - by Oliver Bestwalter
 - (fix `#15 <https://github.com/tox-dev/detox/issues/15>`_) make detox aware of new way to fetch a package in tox 3.3 - by Oliver Bestwalter
 - (fix `#25 <https://github.com/tox-dev/detox/issues/25>`_) print out detox version rather than tox version including detox version as plugin, when invoking `detox --version` - by Oliver Bestwalter
 

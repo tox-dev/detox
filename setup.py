@@ -1,37 +1,12 @@
 from setuptools import setup
 
-long_description = """
-What is detox?
-==========================
-
-detox is the distributed version of "tox".  It makes efficient use of multiple
-CPUs by running all possible activities in parallel.  It has the same options
-and configuration that tox has so after installation can just run::
-
-    detox
-
-in the same way and with the same options with which you would run
-``tox``, see the `tox home page`_ for more info.
-
-Please file issues as "tox" issues using the "detox" label:
-
-    https://github.com/tox-dev/tox/issues
-
-.. note::
-
-    detox runs on python2.7 and python3.4+ (but supports creation of
-    all environments supported of the underlying "tox" command)
-
-.. _`tox home page`: http://tox.readthedocs.org
-"""
-
 
 def main():
     setup(
         name='detox',
         description='distributing activities of the tox tool',
-        long_description=long_description,
-        version='0.14.post1',  # Note: keep in sync with detox/__init__.py
+        long_description=open("README.md").read(),
+        version='0.14.post2',  # Note: keep in sync with detox/__init__.py
         url='https://github.com/tox-dev/detox',
         license='MIT',
         platforms=['unix', 'linux', 'osx', 'cygwin', 'win32'],
