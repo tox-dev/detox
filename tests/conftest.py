@@ -1,11 +1,10 @@
-from __future__ import with_statement
+from __future__ import with_statement, print_function
 import pytest
 import py
 import time
 import sys
 import eventlet
 import detox
-from py.builtin import print_
 from eventlet.green.subprocess import Popen
 from textwrap import dedent as d
 from detox.proc import Detox
@@ -109,7 +108,7 @@ class Cmd:
         cmdargs = [str(x) for x in cmdargs]
         p1 = self.tmpdir.join("stdout")
         p2 = self.tmpdir.join("stderr")
-        print_("running", cmdargs, "curdir=", py.path.local())
+        print("running", cmdargs, "curdir=", py.path.local())
         f1 = p1.open("wb")
         f2 = p2.open("wb")
         now = time.time()
@@ -125,7 +124,7 @@ class Cmd:
         def dump_lines(lines, fp):
             try:
                 for line in lines:
-                    py.builtin.print_(line, file=fp)
+                    print(line, file=fp)
             except UnicodeEncodeError:
                 print("couldn't print to %s because of encoding" % (fp,))
         dump_lines(out, sys.stdout)
