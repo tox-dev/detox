@@ -20,5 +20,4 @@ def main(args=None):
     config = parse(args)
     detox = Detox(config)
     detox.startloopreport()
-    retcode = detox.runtestsmulti(config.envlist)
-    raise SystemExit(retcode)
+    return detox.runtestsmulti(config.envlist)
