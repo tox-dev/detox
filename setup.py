@@ -6,7 +6,8 @@ def main():
         name='detox',
         description='distributing activities of the tox tool',
         long_description=open("README.md").read(),
-        version='0.14.post2',  # Note: keep in sync with detox/__init__.py
+        long_description_content_type='text/markdown',
+        version='0.14.post3',  # Note: keep in sync with detox/__init__.py
         url='https://github.com/tox-dev/detox',
         license='MIT',
         platforms=['unix', 'linux', 'osx', 'cygwin', 'win32'],
