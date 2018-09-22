@@ -9,8 +9,7 @@ def tox_addoption(parser):
     def positive_integer(value):
         ivalue = int(value)
         if ivalue <= 0:
-            raise argparse.ArgumentTypeError(
-                "%s is an invalid positive int value" % value)
+            raise argparse.ArgumentTypeError("{} must be greater 0".format(value))
         return ivalue
 
     try:
@@ -18,10 +17,11 @@ def tox_addoption(parser):
     except Exception:
         num_proc = 2
     parser.add_argument(
-        "-n", "--num",
+        "-n",
+        "--num",
         type=positive_integer,
         action="store",
         default=num_proc,
         dest="numproc",
-        help="set the number of concurrent processes "
-             "(default %s)." % num_proc)
+        help="set the number of concurrent processes " "(default {}).".format(num_proc),
+    )
