@@ -135,6 +135,10 @@ class Detox:
         venv = self.toxsession.getvenv(venvname)
         return self.toxsession.installpkg(venv, sdistpath)
 
+    def provide_developpkg(self, venvname):
+        venv = self.toxsession.getvenv(venvname)
+        return self.toxsession.developpkg(venv, self.toxsession.config.setupdir)
+
     def runtests(self, venvname):
         if self.toxsession.config.option.sdistonly:
             self._sdistpath = self.getresources("sdist")
