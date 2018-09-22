@@ -1,102 +1,100 @@
-0.15
------------------------
+# CHANGELOG
 
-- (fix `#23 <https://github.com/tox-dev/detox/issues/23>`_) do not swallow exceptions - by @vlaci
-- (fix `#16 <https://github.com/tox-dev/detox/issues/16>`_) use tox quiet level to make detox quiet - by Oliver Bestwalter
+## 0.16
+
+- convert changelog to markdown and render as part of description on PyPI
 
 
-0.14.post3
------------------------
+## 0.15
+
+- (fix [#23](https://github.com/tox-dev/detox/issues/23)) do not
+    swallow exceptions - by @vlaci
+- (fix [#16](https://github.com/tox-dev/detox/issues/16)) use tox
+    quiet level to make detox quiet - by Oliver Bestwalter
+
+## 0.14.post3
 
 - and now the markdown description might even be rendered
 
-0.14.post2
------------------------
+## 0.14.post2
 
-- *sigh* replace hardcoded long description with actual content of `README.md`
+- *sigh* replace hardcoded long description with actual content of
+    `README.md`
 
-0.14.post1
------------------------
+## 0.14.post1
 
 - propagate information about new location of issie tracker to PyPI
 
-0.14.0
------------------------
+## 0.14.0
 
-- (fix `#15 <https://github.com/tox-dev/detox/issues/15>`_) make detox aware of new way to fetch a package in tox 3.3 - by Oliver Bestwalter
-- (fix `#15 <https://github.com/tox-dev/detox/issues/15>`_) make detox aware of new way to fetch a package in tox 3.3 - by Oliver Bestwalter
-- (fix `#25 <https://github.com/tox-dev/detox/issues/25>`_) print out detox version rather than tox version including detox version as plugin, when invoking `detox --version` - by Oliver Bestwalter
+- (fix [#15](https://github.com/tox-dev/detox/issues/15)) make detox
+    aware of new way to fetch a package in tox 3.3 - by Oliver
+    Bestwalter
+- (fix [#15](https://github.com/tox-dev/detox/issues/15)) make detox
+    aware of new way to fetch a package in tox 3.3 - by Oliver
+    Bestwalter
+- (fix [#25](https://github.com/tox-dev/detox/issues/25)) print out
+    detox version rather than tox version including detox version as
+    plugin, when invoking [detox --version]{.title-ref} - by Oliver
+    Bestwalter
 
-0.13.0
------------------------
-- (fix `#283 <https://github.com/tox-dev/tox/issues/283>`_) detox creates virtualenvs
-  repeatedly and unnecessarily - by Thomas Steinke
+## 0.13.0
 
-0.12.0
------------------------
+- (fix [#283](https://github.com/tox-dev/tox/issues/283)) detox
+    creates virtualenvs repeatedly and unnecessarily - by Thomas Steinke
 
-- (fix `#792 <https://github.com/tox-dev/tox/issues/792>`_) bump tox version constraint
-  to <4.0 - by Pi Delport
+## 0.12.0
+
+- (fix [#792](https://github.com/tox-dev/tox/issues/792)) bump tox
+    version constraint to <4.0 - by Pi Delport
 - support and test with Python 2.7, 3.4+ - by Miro Hrončok
 - fix project url to point ot github - by Neil Halelamien
 - remove some unused imports - by Nir Soffer
 
+## 0.11.0
 
-0.11.0
------------------------
+- #406: Add support for running detox as python -m detox Thanks André
+    Caron (@AndreLouisCaron).
+- (infrastructure) add Travis CI setup. Thanks Timothée Mazzucotelli
+    (@Pawamoy).
+- add "-n NUMPROC" option to set number of processes. The default is
+    the number of CPUs as determined by multiprocessing.cpu_count() or
+    "2" if the call does not work (e.g. on py27/windows). Thanks
+    Timothée Mazzucotelli (@Pawamoy).
 
-- #406: Add support for running detox as python -m detox
-  Thanks André Caron (@AndreLouisCaron).
+## 0.10.0
 
-- (infrastructure) add Travis CI setup.
-  Thanks Timothée Mazzucotelli (@Pawamoy).
-
-- add "-n NUMPROC" option to set number of processes.  The default
-  is the number of CPUs as determined by multiprocessing.cpu_count()
-  or "2" if the call does not work (e.g. on py27/windows).
-  Thanks Timothée Mazzucotelli (@Pawamoy).
-
-
-0.10.0
------------------------
 
 - get compatible again to tox-2.0
 
-0.9.4
------------------------
+## 0.9.4
 
 - get compatible again to eventlet by avoiding to import
-  eventlet.processes, thanks Takeshi Komiya for the PR.
-
-- make detox honor skipsdist.  Thanks Timoth Messier for the PR.
-
+    eventlet.processes, thanks Takeshi Komiya for the PR.
+- make detox honor skipsdist. Thanks Timoth Messier for the PR.
 - change license to MIT
 
-0.9.3
------------------------
+## 0.9.3
 
-- fix issue6: quickly make detox work with tox-1.6 again (although not all 1.6 features
-  supported, e.g. --develop does not work)
+- fix issue6: quickly make detox work with tox-1.6 again (although not
+    all 1.6 features supported, e.g. --develop does not work)
+- fix issue3: don't claim a TROVE identifier of "python3" because
+    detox itself depends on eventlet which does not work on py3 yet.
+    (Nevertheless detox will create py3 environments through tox of
+    course)
+- fix issue1: support python2.5 again (although we might drop it in
+    the future -- it's enough of tox/detox can _[create]() and handle
+    py25 environments, they don't neccessarily need to support running
+    themselv on py25)
 
-- fix issue3: don't claim a TROVE identifier of "python3" because detox
-  itself depends on eventlet which does not work on py3 yet. (Nevertheless
-  detox will create py3 environments through tox of course)
-
-- fix issue1: support python2.5 again (although we might drop it in the
-  future -- it's enough of tox/detox can _create_ and handle py25 environments,
-  they don't neccessarily need to support running themselv on py25)
-
-0.9.2
------------------------
+## 0.9.2
 
 - fix issue4 - fail properly if sdist-packaging fails
 
-0.9.1
------------------------
+## 0.9.1
 
 - fix issue5 - small adjustments to work with latest tox-1.4.3 version
 
-0.9
------------------------
+## 0.9
 
 - initial release
