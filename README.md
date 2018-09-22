@@ -12,8 +12,6 @@ in the same way and with the same options with which you would run `tox`, see th
 
 Additionally, detox offers a `-n` or `--num` option to set the number of concurrent processes to use.
 
-Please file issues as ["tox" issues](https://github.com/tox-dev/tox/issues) using a "detox: " prefix in the issue title.
-
 ## Note
 
 detox runs on python2.7 and python3.4+ (but supports creation of all environments supported of the underlying "tox" command)
