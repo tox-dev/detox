@@ -24,7 +24,7 @@ class FileSpinner:
             lastsize, charindex = self.path2last[path]
         except KeyError:
             lastsize, charindex = 0, 0
-        newsize = path.size()
+        newsize = 0 if not path else path.size()
         if newsize != lastsize:
             charindex += 1
         self.path2last[path] = (lastsize, charindex)

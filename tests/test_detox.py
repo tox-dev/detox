@@ -79,6 +79,12 @@ class TestDetoxExample2:
     def test_test(self, detox):
         detox.runtests("py")
 
+    def test_developpkg(self, detox):
+        venv, = detox.getresources("venv:py")
+        developpkg, = detox.getresources("developpkg:py")
+        assert developpkg is False
+
+
 class TestCmdline:
     pytestmark = [pytest.mark.example1]
     @pytest.mark.timeout(20)
