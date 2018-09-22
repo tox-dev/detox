@@ -2,9 +2,11 @@ from __future__ import with_statement
 
 import eventlet
 from eventlet.timeout import Timeout
-from eventlet.green.subprocess import Popen, PIPE, STDOUT
+from eventlet.green.subprocess import Popen
 from eventlet import GreenPool
+import tox
 import tox.session
+
 
 def timelimited(secs, func):
     if secs is not None:
@@ -113,7 +115,13 @@ class Detox:
             return self._toxsession
 
     def provide_sdist(self):
-        sdistpath = self.toxsession.get_installpkg_path()
+        tox_major, tox_minor = tox.__version__.split('.')[:2]
+        if int(tox_major) > 2 and int(tox_minor) > 2:
+            from tox.package import get_package
+
+            sdistpath = get_package(self.toxsession)
+        else:
+            sdistpath = self.toxsession.get_installpkg_path()
         if not sdistpath:
             raise SystemExit(1)
         return sdistpath
