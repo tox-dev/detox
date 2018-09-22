@@ -1,6 +1,12 @@
+0.14.0
+-----------------------
+
+- (fix `#15 <https://github.com/tox-dev/detox/issues/15>`_) make detox aware of new way to fetch a package in tox 3.3 - by Oliver Bestwalter
+- (fix `#25 <https://github.com/tox-dev/detox/issues/25>`_) print out detox version rather than tox version including detox version as plugin, when invoking `detox --version` - by Oliver Bestwalter
+
 0.13.0
 -----------------------
-- (fix `#283 <https://github.com/tox-dev/tox/issues/283>`_) detox creates virtualenvs 
+- (fix `#283 <https://github.com/tox-dev/tox/issues/283>`_) detox creates virtualenvs
   repeatedly and unnecessarily - by Thomas Steinke
 
 0.12.0
