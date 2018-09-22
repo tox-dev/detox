@@ -6,11 +6,6 @@ from detox import __version__
 from detox.proc import Detox
 
 
-def parse(args):
-    from tox.session import prepare
-    return prepare(args)
-
-
 def main(args=None):
     if args is None:
         args = sys.argv[1:]
@@ -22,3 +17,9 @@ def main(args=None):
     if not hasattr(config.option, "quiet_level") or not config.option.quiet_level:
         detox.startloopreport()
     return detox.runtestsmulti(config.envlist)
+
+
+def parse(args):
+    from tox.session import prepare
+
+    return prepare(args)
