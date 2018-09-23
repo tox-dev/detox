@@ -122,13 +122,12 @@ class Detox:
         return self._toxsession
 
     def provide_sdist(self):
-        tox_major, tox_minor = tox.__version__.split(".")[:2]
-        if int(tox_major) > 2 and int(tox_minor) > 2:
+        try:
+            sdistpath = self.toxsession.get_installpkg_path()  # tox < 3.3
+        except AttributeError:
             from tox.package import get_package
 
             sdistpath = get_package(self.toxsession)
-        else:
-            sdistpath = self.toxsession.get_installpkg_path()
         if not sdistpath:
             raise SystemExit(1)
         return sdistpath
