@@ -14,8 +14,10 @@ def timelimited(secs, func):
             return func()
     return func()
 
+
 class FileSpinner:
     chars = r"- \ | / - \ | /".split()
+
     def __init__(self):
         self.path2last = {}
 
@@ -32,8 +34,10 @@ class FileSpinner:
 
 
 class ToxReporter(tox.session.Reporter):
-    sortorder = ("runtests command installdeps installpkg inst inst-nodeps "
-        "sdist-make create recreate".split())
+    sortorder = (
+        "runtests command installdeps installpkg inst inst-nodeps "
+        "sdist-make create recreate".split()
+    )
 
     def __init__(self, session):
         super(ToxReporter, self).__init__(session)
@@ -61,7 +65,7 @@ class ToxReporter(tox.session.Reporter):
                     continue
                 sublist = []
                 for popen in popenlist:
-                    name = getattr(popen.action.venv, 'name', "INLINE")
+                    name = getattr(popen.action.venv, "name", "INLINE")
                     char = filespinner.getchar(popen.outpath)
                     sublist.append("%s%s" % (name, char))
                 msg.append("%s %s" % (acname, " ".join(sublist)))
@@ -69,7 +73,7 @@ class ToxReporter(tox.session.Reporter):
             if msg:
                 msg = "   ".join(msg)
                 if len(msg) >= self.tw.fullwidth:
-                    msg = msg[:self.tw.fullwidth-3]+".."
+                    msg = msg[: self.tw.fullwidth - 3] + ".."
                 self.tw.reline(msg)
 
     def __getattr__(self, name):
@@ -77,9 +81,10 @@ class ToxReporter(tox.session.Reporter):
             raise AttributeError(name)
 
         def generic_report(*args):
-            self._calls.append((name,)+args)
+            self._calls.append((name,) + args)
             if self.config.option.verbosity >= 2:
-                print ("%s" %(self._calls[-1], ))
+                print("%s" % (self._calls[-1],))
+
         return generic_report
 
     def logaction_finish(self, action):
@@ -89,12 +94,13 @@ class ToxReporter(tox.session.Reporter):
         else:
             super(ToxReporter, self).logaction_finish(action)
 
-    #def logpopen(self, popen):
+    # def logpopen(self, popen):
     #    self._tw.line(msg)
 
-    #def popen_error(self, msg, popen):
+    # def popen_error(self, msg, popen):
     #    self._tw.line(msg, red=True)
     #    self._tw.line("logfile: %s" % popen.stdout.name)
+
 
 class Detox:
     def __init__(self, toxconfig):
@@ -111,11 +117,12 @@ class Detox:
             return self._toxsession
         except AttributeError:
             self._toxsession = tox.session.Session(
-                self._toxconfig, Report=ToxReporter, popen=Popen)
+                self._toxconfig, Report=ToxReporter, popen=Popen
+            )
             return self._toxsession
 
     def provide_sdist(self):
-        tox_major, tox_minor = tox.__version__.split('.')[:2]
+        tox_major, tox_minor = tox.__version__.split(".")[:2]
         if int(tox_major) > 2 and int(tox_minor) > 2:
             from tox.package import get_package
 
@@ -170,6 +177,7 @@ class Detox:
 
     def getresources(self, *specs):
         return self._resources.getresources(*specs)
+
 
 class Resources:
     def __init__(self, providerbase):
