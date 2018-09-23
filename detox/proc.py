@@ -94,13 +94,6 @@ class ToxReporter(tox.session.Reporter):
         else:
             super(ToxReporter, self).logaction_finish(action)
 
-    # def logpopen(self, popen):
-    #    self._tw.line(msg)
-
-    # def popen_error(self, msg, popen):
-    #    self._tw.line(msg, red=True)
-    #    self._tw.line("logfile: %s" % popen.stdout.name)
-
 
 class Detox:
     def __init__(self, toxconfig):
