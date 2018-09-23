@@ -52,8 +52,8 @@ class ToxReporter(tox.session.Reporter):
             for action in self.session._actions:
                 for popen in action._popenlist:
                     if popen.poll() is None:
-                        l = ac2popenlist.setdefault(action.activity, [])
-                        l.append(popen)
+                        ol = ac2popenlist.setdefault(action.activity, [])
+                        ol.append(popen)
                 if not action._popenlist and action in self._actionmayfinish:
                     super(ToxReporter, self).logaction_finish(action)
                     self._actionmayfinish.remove(action)
@@ -106,6 +106,8 @@ class Detox:
     def __init__(self, toxconfig):
         self._toxconfig = toxconfig
         self._resources = Resources(self)
+        self._sdistpath = None
+        self._toxsession = None
 
     def startloopreport(self):
         if self.toxsession.report.tw.hasmarkup:
@@ -113,13 +115,11 @@ class Detox:
 
     @property
     def toxsession(self):
-        try:
-            return self._toxsession
-        except AttributeError:
+        if not self._toxsession:
             self._toxsession = tox.session.Session(
                 self._toxconfig, Report=ToxReporter, popen=Popen
             )
-            return self._toxsession
+        return self._toxsession
 
     def provide_sdist(self):
         tox_major, tox_minor = tox.__version__.split(".")[:2]
@@ -199,9 +199,9 @@ class Resources:
                 if spec not in self._spec2thread:
                     t = self._pool.spawn(self._dispatchprovider, spec)
                     self._spec2thread[spec] = t
-        l = []
+        resources = []
         for spec in specs:
             if spec not in self._resources:
                 self._spec2thread[spec].wait()
-            l.append(self._resources[spec])
-        return l
+            resources.append(self._resources[spec])
+        return resources
