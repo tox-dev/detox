@@ -3,8 +3,6 @@
 [![Supported Python Versions](https://img.shields.io/pypi/pyversions/detox.svg)](https://pypi.org/project/detox/)
 [![Code Style: Black](https://img.shields.io/badge/code%20style-black-000000.svg)](https://github.com/ambv/black)
 
-**Please note: this project needs some serious TLC - see [this issue](https://github.com/tox-dev/detox/issues/27).**
-
 # What is detox?
 
 detox is the distributed version of [tox](https://pypi.org/project/tox/).  It makes efficient use of multiple CPUs by running all possible activities in parallel.  It has the same options and configuration that tox has so after installation can just run:
