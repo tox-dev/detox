@@ -134,25 +134,12 @@ class Cmd:
         dump_lines(err, sys.stderr)
         return RunResult(ret, out, err, time.time()-now)
 
-@pytest.mark.tryfirst
-def pytest_pyfunc_call(__multicall__, pyfuncitem):
-    try:
-        timeout = pyfuncitem.obj.timeout.args[0]
-    except (AttributeError, IndexError):
-        timeout = 5.0
+@pytest.fixture(autouse=True)
+def with_timeout(request):
+    marker = request.node.get_closest_marker("timeout")
+    timeout = marker.args[0] if marker else 5.0
     with eventlet.Timeout(timeout):
-        return __multicall__.execute()
-
-def test_pyfuncall():
-    class MC:
-        def execute(self):
-            eventlet.sleep(5.0)
-    class pyfuncitem:
-        class obj:
-            class timeout:
-                args = [0.001]
-    pytest.raises(eventlet.Timeout,
-        lambda: pytest_pyfunc_call(MC(), pyfuncitem))
+        yield
 
 def test_hang(testdir):
     p = py.path.local(__file__).dirpath('conftest.py')

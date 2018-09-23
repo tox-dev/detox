@@ -2,7 +2,7 @@ from datetime import datetime, timedelta
 
 import pytest
 import eventlet
-import detox
+
 from detox.proc import Resources
 
 class TestResources:
