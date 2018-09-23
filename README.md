@@ -1,6 +1,7 @@
 [![Build Status](https://travis-ci.org/tox-dev/detox.svg?branch=master)](https://travis-ci.org/tox-dev/detox)
 [![Latest Version on PyPI](https://badge.fury.io/py/detox.svg)](https://badge.fury.io/py/detox)
 [![Supported Python Versions](https://img.shields.io/pypi/pyversions/detox.svg)](https://pypi.org/project/detox/)
+[![Code Style: Black](https://img.shields.io/badge/code%20style-black-000000.svg)](https://github.com/ambv/black)
 
 **Please note: this project needs some serious TLC - see [this issue](https://github.com/tox-dev/detox/issues/27).**
 

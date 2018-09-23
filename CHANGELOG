@@ -2,8 +2,21 @@
 
 ## 0.16
 
+- integrate usable fixes from stale PR7
+    - (fix [#20](https://github.com/tox-dev/detox/issues/20) detox
+      ignores/breaks usedevelop - by Kendall Chuang
+    - (fix [#21](https://github.com/tox-dev/detox/issues/21)
+      detox doesn't support skipsdist config option - by Kendall Chuang
 - convert changelog to markdown and render as part of description on PyPI
-
+- detox version now prints own version and then what tox has to say
+  (it's a plugin after all and that should be made clear)
+- [Internal changes]
+    - add extra dependencies in setup.py
+    - update tests to current pytest API
+    - use black for code formatting
+    - use flake8 for linting
+    - add descriptions to tox envs
+    - add a "dev" tox env
 
 ## 0.15
 
