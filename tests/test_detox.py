@@ -89,7 +89,7 @@ class TestDetoxExample2:
         detox.runtests("py")
 
     def test_developpkg(self, detox):
-        _ = detox.getresources("venv:py")
+        detox.getresources("venv:py")
         developpkg, = detox.getresources("developpkg:py")
         assert developpkg is False
 
