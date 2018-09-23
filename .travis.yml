@@ -5,7 +5,8 @@ python:
   - '3.4'
   - '3.5'
   - '3.6'
-  - '3.7-dev'
+  - '3.7'
+  - '3.8-dev'
 
 matrix:
   fast_finish: true
@@ -20,7 +21,7 @@ install:
   - virtualenv --version
   - pip --version
 script:
-  - tox -e py
+  - detox
 after_failure:
   - more .tox/log/* | cat
   - more .tox/*/log/* | cat
