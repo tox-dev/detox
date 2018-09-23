@@ -10,7 +10,7 @@ from eventlet.green.subprocess import Popen
 from textwrap import dedent as d
 
 from detox.proc import Detox
-from detox.main import main as detox_main, parse as detox_parse
+from detox.cli import main as detox_main, tox_prepare
 
 pytest_plugins = "pytester"
 
@@ -101,7 +101,7 @@ def exampledir(request, tmpdir):
 def detox(exampledir):
     old = exampledir.chdir()
     try:
-        return Detox(detox_parse([]))
+        return Detox(tox_prepare([]))
     finally:
         old.chdir()
 

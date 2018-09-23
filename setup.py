@@ -42,7 +42,7 @@ setup(
     install_requires=["tox>=2,<4", "py>=1.4.27", "eventlet>=0.15.0"],
     extras_require={"lint": ["black", "flake8"], "dev": ["pytest >= 3.8"]},
     entry_points={
-        "console_scripts": "detox=detox.main:main",
+        "console_scripts": "detox=detox.cli:main",
         "tox": ["proclimit = detox.tox_proclimit"],
     },
 )
