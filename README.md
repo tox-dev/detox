@@ -12,3 +12,5 @@ detox is the distributed version of [tox](https://pypi.org/project/tox/).  It ma
 in the same way and with the same options with which you would run `tox`, see the [tox home page](http://tox.readthedocs.io) for more info.
 
 Additionally, detox offers a `-n` or `--num` option to set the number of concurrent processes to use.
+
+**NOTE** due to the concurrent execution of the testenvs the output of the different testruns is not printed to the termineal. Instead they are logged into separate files inside the `log` directories of the testenvs.
