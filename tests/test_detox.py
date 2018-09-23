@@ -8,19 +8,19 @@ from detox.proc import Resources
 
 class TestResources:
     def test_getresources(self):
-        l = []
+        x = []
 
         class Provider:
             def provide_abc(self):
-                l.append(1)
+                x.append(1)
                 return 42
 
         resources = Resources(Provider())
         res, = resources.getresources("abc")
         assert res == 42
-        assert len(l) == 1
+        assert len(x) == 1
         res, = resources.getresources("abc")
-        assert len(l) == 1
+        assert len(x) == 1
         assert res == 42
 
     def test_getresources_param(self):
@@ -33,12 +33,11 @@ class TestResources:
         return res == "123"
 
     def test_getresources_parallel(self):
-        l = []
-        queue = eventlet.Queue()
+        x = []
 
         class Provider:
             def provide_abc(self):
-                l.append(1)
+                x.append(1)
                 return 42
 
         resources = Resources(Provider())
@@ -46,19 +45,18 @@ class TestResources:
         pool.spawn(lambda: resources.getresources("abc"))
         pool.spawn(lambda: resources.getresources("abc"))
         pool.waitall()
-        assert len(l) == 1
+        assert len(x) == 1
 
     def test_getresources_multi(self):
-        l = []
-        queue = eventlet.Queue()
+        x = []
 
         class Provider:
             def provide_abc(self):
-                l.append(1)
+                x.append(1)
                 return 42
 
             def provide_def(self):
-                l.append(1)
+                x.append(1)
                 return 23
 
         resources = Resources(Provider())
@@ -91,7 +89,7 @@ class TestDetoxExample2:
         detox.runtests("py")
 
     def test_developpkg(self, detox):
-        venv, = detox.getresources("venv:py")
+        _ = detox.getresources("venv:py")
         developpkg, = detox.getresources("developpkg:py")
         assert developpkg is False
 
@@ -115,13 +113,13 @@ class TestProcLimitOption:
 
             option = MyOption()
 
-        l = []
+        x = []
 
         def MyGreenPool(**kw):
-            l.append(kw)
+            x.append(kw)
             # Building a Detox object will already call GreenPool(),
             # so we have to let MyGreenPool being called twice before raise
-            if len(l) == 2:
+            if len(x) == 2:
                 raise ValueError
 
         from detox import proc
@@ -131,8 +129,8 @@ class TestProcLimitOption:
             d = proc.Detox(MyConfig())
             d.runtestsmulti(["env1", "env2", "env3"])  # Fake env list
 
-        assert l[0] == {}  # When building Detox object
-        assert l[1] == {"size": 7}  # When calling runtestsmulti
+        assert x[0] == {}  # When building Detox object
+        assert x[1] == {"size": 7}  # When calling runtestsmulti
 
     @pytest.mark.timeout(60)
     def test_runtests(self, cmd):
