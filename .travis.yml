@@ -1,3 +1,5 @@
+conditions: v1
+
 sudo: false
 language: python
 python:
@@ -5,7 +7,11 @@ python:
   - '3.4'
   - '3.5'
   - '3.6'
-  - '3.7-dev'
+
+stages:
+- test
+- name: nightly
+  if: type IN (api, cron)
 
 jobs:
   fast_finish: true
@@ -14,6 +20,16 @@ jobs:
   - python: '3.7'
     dist: xenial
     sudo: required
+
+  - stage: nightly
+    name: Test against unstable/dev build of Python
+    python: '3.7-dev'
+
+  - stage: nightly
+    name: Test against unstable/master build of tox under Python 3.6
+    python: '3.6'
+    script:
+    - tox -e tox-master
 
 before_install:
   - uname -a
