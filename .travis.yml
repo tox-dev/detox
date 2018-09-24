@@ -1,35 +1,56 @@
+conditions: v1
+
 sudo: false
 language: python
 python:
-  - '2.7'
-  - '3.4'
-  - '3.5'
-  - '3.6'
-  - '3.7-dev'
+- '2.7'
+- '3.4'
+- '3.5'
+- '3.6'
 
-matrix:
+stages:
+- test
+- name: nightly
+  if: type IN (api, cron)
+
+jobs:
   fast_finish: true
 
+  include:
+  - python: '3.7'
+    dist: xenial
+    sudo: required
+
+  - stage: nightly
+    name: Test against unstable/dev build of Python
+    python: '3.7-dev'
+
+  - stage: nightly
+    name: Test against unstable/master build of tox under Python 3.6
+    python: '3.6'
+    env:
+      TOXENV: tox-master
+
+env:
+  TOXENV: py
 before_install:
-  - python --version
-  - uname -a
-  - lsb_release -a
+- uname -a
+- lsb_release -a
+- virtualenv --version
 install:
-  - pip install -U --pre tox
-  - tox --version
-  - virtualenv --version
-  - pip --version
+- pip install -U --pre tox
+before_script:
+- tox --version
 script:
-  - tox -e py
+- tox
 after_failure:
-  - more .tox/log/* | cat
-  - more .tox/*/log/* | cat
+- cat .tox/log/* .tox/*/log/*
 
 before_cache:
-  - rm -rf $HOME/.cache/pip/log
+- rm -rf $HOME/.cache/pip/log
 cache:
   directories:
-    - $HOME/.cache/pip
+  - $HOME/.cache/pip
 
 notifications:
   email:
