@@ -11,14 +11,12 @@ matrix:
   fast_finish: true
 
 before_install:
-  - python --version
   - uname -a
   - lsb_release -a
 install:
   - pip install -U --pre tox
   - tox --version
   - virtualenv --version
-  - pip --version
 script:
   - tox -e py
 after_failure:
