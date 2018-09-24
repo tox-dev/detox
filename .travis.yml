@@ -13,10 +13,10 @@ matrix:
 before_install:
   - uname -a
   - lsb_release -a
+  - virtualenv --version
 install:
   - pip install -U --pre tox
   - tox --version
-  - virtualenv --version
 script:
   - tox -e py
 after_failure:
