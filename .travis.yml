@@ -3,10 +3,10 @@ conditions: v1
 sudo: false
 language: python
 python:
-  - '2.7'
-  - '3.4'
-  - '3.5'
-  - '3.6'
+- '2.7'
+- '3.4'
+- '3.5'
+- '3.6'
 
 stages:
 - test
@@ -34,23 +34,23 @@ jobs:
 env:
   TOXENV: py
 before_install:
-  - uname -a
-  - lsb_release -a
-  - virtualenv --version
+- uname -a
+- lsb_release -a
+- virtualenv --version
 install:
-  - pip install -U --pre tox
+- pip install -U --pre tox
 before_script:
-  - tox --version
+- tox --version
 script:
-  - tox
+- tox
 after_failure:
-  - cat .tox/log/* .tox/*/log/*
+- cat .tox/log/* .tox/*/log/*
 
 before_cache:
-  - rm -rf $HOME/.cache/pip/log
+- rm -rf $HOME/.cache/pip/log
 cache:
   directories:
-    - $HOME/.cache/pip
+  - $HOME/.cache/pip
 
 notifications:
   email:
