@@ -28,9 +28,11 @@ jobs:
   - stage: nightly
     name: Test against unstable/master build of tox under Python 3.6
     python: '3.6'
-    script:
-    - tox -e tox-master
+    env:
+      TOXENV: tox-master
 
+env:
+  TOXENV: py
 before_install:
   - uname -a
   - lsb_release -a
@@ -40,7 +42,7 @@ install:
 before_script:
   - tox --version
 script:
-  - tox -e py
+  - tox
 after_failure:
   - more .tox/log/* | cat
   - more .tox/*/log/* | cat
