@@ -44,8 +44,7 @@ before_script:
 script:
   - tox
 after_failure:
-  - more .tox/log/* | cat
-  - more .tox/*/log/* | cat
+  - cat .tox/log/* .tox/*/log/*
 
 before_cache:
   - rm -rf $HOME/.cache/pip/log
