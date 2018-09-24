@@ -16,6 +16,7 @@ before_install:
   - virtualenv --version
 install:
   - pip install -U --pre tox
+before_script:
   - tox --version
 script:
   - tox -e py
