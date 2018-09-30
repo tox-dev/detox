@@ -1,6 +1,6 @@
 # CHANGELOG
 
-## 0.16
+## 0.16 (not released)
 
 - integrate usable fixes from stale PR7
     - (fix [#20](https://github.com/tox-dev/detox/issues/20) detox
