@@ -17,4 +17,4 @@ def main(args=None):
     detox = Detox(config)
     if not hasattr(config.option, "quiet_level") or not config.option.quiet_level:
         detox.startloopreport()
-    return detox.runtestsmulti(config.envlist)
+    return detox.runtestsmulti(detox.toxsession.evaluated_env_list())
