@@ -69,8 +69,9 @@ class TestDetoxExample1:
     pytestmark = [pytest.mark.example1, pytest.mark.timeout(20)]
 
     def test_createsdist(self, detox):
-        sdist, = detox.getresources("sdist")
-        assert sdist.check()
+        sdists, = detox.getresources("sdist")
+        for sdist in sdists:
+            assert sdist.check()
 
     def test_getvenv(self, detox):
         venv, = detox.getresources("venv:py")

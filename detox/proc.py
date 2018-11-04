@@ -149,8 +149,11 @@ class Detox:
                 self.toxsession.runtestenv(venv, redirect=True)
         else:
             venv, sdist = self.getresources("venv:%s" % venvname, "sdist")
-            self._sdistpath = sdist
             if venv and sdist:
+                # tox >= 3.5 returns a tuple of paths rather than a path
+                # not knowing what I do, I'll simply use the first one ...
+                if isinstance(sdist, tuple):
+                    sdist = sdist[0]
                 if self.toxsession.installpkg(venv, sdist):
                     self.toxsession.runtestenv(venv, redirect=True)
 
