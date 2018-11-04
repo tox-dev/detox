@@ -150,8 +150,7 @@ class Detox:
         else:
             venv, sdist = self.getresources("venv:%s" % venvname, "sdist")
             if venv and sdist:
-                # tox >= 3.5 returns a tuple of paths rather than a path
-                # not knowing what I do, I'll simply use the first one ...
+                # tox >= 3.5 returns a tuple, the first one is the session package
                 if isinstance(sdist, tuple):
                     sdist = sdist[0]
                 if self.toxsession.installpkg(venv, sdist):
