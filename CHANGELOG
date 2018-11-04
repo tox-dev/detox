@@ -1,6 +1,8 @@
 # CHANGELOG
 
-## 0.16 (not released)
+## 0.18
+
+Note that usedevlop still does not seem to be fixed (PRs welcome)
 
 - integrate usable fixes from stale PR7
     - (fix [#20](https://github.com/tox-dev/detox/issues/20) detox
@@ -17,6 +19,9 @@
     - use flake8 for linting
     - add descriptions to tox envs
     - add a "dev" tox env
+
+## 0.17 (botched release)
+## 0.16 (not released)
 
 ## 0.15
 
