@@ -13,4 +13,4 @@ in the same way and with the same options with which you would run `tox`, see th
 
 Additionally, detox offers a `-n` or `--num` option to set the number of concurrent processes to use.
 
-**NOTE** due to the concurrent execution of the testenvs the output of the different testruns is not printed to the termineal. Instead they are logged into separate files inside the `log` directories of the testenvs.
+**NOTE** due to the concurrent execution of the testenvs the output of the different testruns is not printed to the terminal. Instead they are logged into separate files inside the `log` directories of the testenvs.
