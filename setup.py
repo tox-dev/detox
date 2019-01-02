@@ -1,10 +1,11 @@
+import io
 from setuptools import setup
 
 
 def make_long_description():
-    with open("README.md") as f:
+    with io.open("README.md", encoding='UTF-8') as f:
         readme = f.read()
-    with open("CHANGELOG") as f:
+    with io.open("CHANGELOG", encoding='UTF-8') as f:
         changelog = f.read()
     return readme + "\n\n" + changelog
 
