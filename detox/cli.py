@@ -17,4 +17,9 @@ def main(args=None):
     detox = Detox(config)
     if not hasattr(config.option, "quiet_level") or not config.option.quiet_level:
         detox.startloopreport()
-    return detox.runtestsmulti(detox.toxsession.evaluated_env_list())
+    ret = detox.runtestsmulti(detox.toxsession.evaluated_env_list())
+    print("### WARNING ###\n\n"
+          "detox is not compatible with versions of tox > 3.6."
+          "Consider uninstalling detox and upgrading tox to >= 3.7"
+          "to use its parallel mode.")
+    return ret
