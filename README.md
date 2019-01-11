@@ -1,3 +1,11 @@
+[![Project Status: Unsupported – The project has reached a stable, usable state but the author(s) have ceased all work on it. A new maintainer may be desired.](https://www.repostatus.org/badges/latest/unsupported.svg)](https://www.repostatus.org/#unsupported)
+
+# detox is unmaintained and incompatible with tox > 3.6
+
+`detox` was a plugin for [`tox`](https://pypi.org/project/tox/) to enable parallel environment execution. `tox` 3.7 added a native possibility to do this (`tox -p|--parallel`) and effectively supercedes detox.
+
+---
+
 [![Build Status](https://travis-ci.org/tox-dev/detox.svg?branch=master)](https://travis-ci.org/tox-dev/detox)
 [![Latest Version on PyPI](https://badge.fury.io/py/detox.svg)](https://badge.fury.io/py/detox)
 [![Supported Python Versions](https://img.shields.io/pypi/pyversions/detox.svg)](https://pypi.org/project/detox/)

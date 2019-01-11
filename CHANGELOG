@@ -1,8 +1,14 @@
 # CHANGELOG
 
+## 0.19
+
+- as tox added a parallel mode in 3.7 detox will only work with older versions of tox now so the installation requires a version of tox < 3.7
+- mark repository as unmaintained
+- add a warning at the end of the testrun hinting the user to try it without detox and a version of tox > 3.6
+
 ## 0.18
 
-Note that usedevlop still does not seem to be fixed (PRs welcome)
+Note that usedevelop still does not seem to be fixed (PRs welcome)
 
 - integrate usable fixes from stale PR7
     - (fix [#20](https://github.com/tox-dev/detox/issues/20) detox

@@ -15,7 +15,7 @@ setup(
     description="distributing activities of the tox tool",
     long_description=make_long_description(),
     long_description_content_type="text/markdown",
-    version="0.18",  # Note: keep in sync with detox/__init__.py
+    version="0.19",  # Note: keep in sync with detox/__init__.py
     url="https://github.com/tox-dev/detox",
     license="MIT",
     platforms=["unix", "linux", "osx", "cygwin", "win32"],
@@ -40,7 +40,7 @@ setup(
         "Programming Language :: Python",
     ],
     packages=["detox"],
-    install_requires=["tox>=3.5,<4", "py>=1.4.27", "eventlet>=0.15.0"],
+    install_requires=["tox>=3.5,<3.7", "py>=1.4.27", "eventlet>=0.15.0"],
     extras_require={"lint": ["black", "flake8"], "dev": ["pytest >= 3.8"]},
     entry_points={
         "console_scripts": "detox=detox.cli:main",
